@@ -1,4 +1,3 @@
-use core::num;
 use std::{cmp, io::{self, Read}};
 
 #[derive(Debug)]
@@ -75,12 +74,13 @@ impl Lexer {
             if let Ok(num) = num_str.parse::<f64>() {
                 self.num_val = Some(num);
             }
+
+            return Token::TokNumber;
         }
 
         return Token::TokNumber;
     }
 }
-
 
 fn main() {
     let mut lexer: Lexer = Lexer {identifier_str: None, num_val: None};

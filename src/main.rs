@@ -1,5 +1,6 @@
 use std::io::{self, Read};
 
+#[derive(Debug)]
 enum Token {
     TokEof = -1,
 
@@ -21,12 +22,12 @@ fn get_char() -> Option<char> {
 }
 
 struct Lexer { 
-    identifier_str: String,
-    num_val: f64,
+    identifier_str: Option<String>,
+    num_val: Option<f64>,
 }
 
 impl Lexer {
-    fn get_tok() {
+    fn get_tok(&mut self) -> Token {
         let mut last_char: char = ' ';
 
         while last_char == ' ' {
@@ -37,16 +38,29 @@ impl Lexer {
             }
         }
 
-        println!("{}", last_char);
+        // println!("{}", last_char);
 
         if last_char.is_alphabetic() {
-            println!("works");
+            self.identifier_str = Some(last_char.to_string());
+            // println!("{:?}", self.identifier_str);
+
+            if self.identifier_str == Some("def".to_string()) {
+                return Token::TokDef;
+            }
+            if self.identifier_str == Some("extern".to_string()) {
+                return Token::TokExtern;
+            }
+            return Token::TokIdentifier;
         }
+
+        return Token::TokNumber;
     }
 }
 
 
 fn main() {
-    println!("Hello0 world ");
-    Lexer::get_tok();
+    let mut lexer: Lexer = Lexer {identifier_str: None, num_val: None};
+    println!("{:?}", lexer.identifier_str);
+    lexer.get_tok();
+    println!("{:?}", lexer.identifier_str);
 }

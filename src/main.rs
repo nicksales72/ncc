@@ -1,4 +1,5 @@
-use std::io::{self, Read};
+use core::num;
+use std::{cmp, io::{self, Read}};
 
 #[derive(Debug)]
 enum Token {
@@ -35,11 +36,11 @@ impl Lexer {
             if let Some(my_char) = get_char() {
                 last_char = my_char;
             } else {
-                last_char = ' ';
+                last_char = '\0';
             }
         }
 
-        println!("{}", last_char);
+        // println!("{}", last_char);
 
         if last_char.is_alphabetic() {
             self.identifier_str = Some(last_char.to_string());
@@ -57,7 +58,23 @@ impl Lexer {
                 println!("extern!");
                 return Token::TokExtern;
             }
+
             return Token::TokIdentifier;
+        }
+
+        if last_char.is_ascii_digit() || last_char == '.' {
+            let mut num_str: String = String::new();
+            while last_char.is_ascii_digit() || last_char == '.' {
+                num_str.push(last_char);
+                match get_char() {
+                    Some(c) => last_char = c,
+                    None => break,
+                }
+            }
+
+            if let Ok(num) = num_str.parse::<f64>() {
+                self.num_val = Some(num);
+            }
         }
 
         return Token::TokNumber;

@@ -21,6 +21,7 @@ fn get_char() -> Option<char> {
     }
 }
 
+#[derive(Debug)]
 struct Lexer { 
     identifier_str: Option<String>,
     num_val: Option<f64>,
@@ -38,16 +39,22 @@ impl Lexer {
             }
         }
 
-        // println!("{}", last_char);
+        println!("{}", last_char);
 
         if last_char.is_alphabetic() {
             self.identifier_str = Some(last_char.to_string());
             // println!("{:?}", self.identifier_str);
 
+            while let Some(my_char) = get_char() && my_char.is_alphanumeric() {
+                self.identifier_str.get_or_insert(String::new()).push(my_char);
+            }
+
             if self.identifier_str == Some("def".to_string()) {
+                println!("def!");
                 return Token::TokDef;
             }
             if self.identifier_str == Some("extern".to_string()) {
+                println!("extern!");
                 return Token::TokExtern;
             }
             return Token::TokIdentifier;
@@ -60,7 +67,8 @@ impl Lexer {
 
 fn main() {
     let mut lexer: Lexer = Lexer {identifier_str: None, num_val: None};
-    println!("{:?}", lexer.identifier_str);
-    lexer.get_tok();
-    println!("{:?}", lexer.identifier_str);
+    // println!("{:?}", lexer.identifier_str);
+    let test = lexer.get_tok();
+    // println!("{:?}", lexer.identifier_str);
+    println!("{:?}", lexer);
 }

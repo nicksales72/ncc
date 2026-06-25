@@ -1,4 +1,4 @@
-use std::{cmp, io::{self, Read}};
+use std::io::{self, Read};
 
 #[derive(Debug)]
 enum Token {

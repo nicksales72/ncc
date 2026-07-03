@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Compiler.h"
+#include "Compiler/Compiler.h"
 
 
 int main(int argc, char **argv) {

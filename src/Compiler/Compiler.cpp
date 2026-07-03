@@ -2,8 +2,8 @@
 #include <vector>
 
 #include "Compiler.h"
-#include "Helpers.h"
-#include "Scanner.h"
+#include "../Helpers/Helpers.h"
+#include "../Scanner/Scanner.h"
 
 Compiler::Compiler() { }
 

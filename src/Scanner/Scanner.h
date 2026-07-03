@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "Token.h"
+#include "../Tokenizer/Token.h"
 
 class Scanner {
     public: 

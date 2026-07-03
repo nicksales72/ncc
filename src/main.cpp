@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <fstream>
+
+#include "helpers.h"
 
 class CCompiler {
     bool had_error;
@@ -11,7 +12,6 @@ class CCompiler {
         void runFile(std::string path);
     private:
         void run();
-        std::vector<char> readFile(std::string path);
 };
 
 CCompiler::CCompiler() { }
@@ -21,12 +21,6 @@ void CCompiler::runFile(std::string path) {
     for (char thing : bytes) {
         std::cout << thing;
     }
-}
-
-std::vector<char> CCompiler::readFile(std::string path) {
-    std::ifstream input(path, std::ios::binary);
-    std::vector<char> bytes((std::istreambuf_iterator<char>(input)), std::istreambuf_iterator<char>());
-    return bytes;
 }
 
 int main(int argc, char **argv) {

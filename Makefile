@@ -1,5 +1,5 @@
 main: src/main.cpp
-	g++	src/main.cpp -o ncc
+	g++	src/*.cpp -o ncc
 
 clean: 
 	rm ncc

@@ -1,5 +1,5 @@
-main: src/main.c
-	gcc	src/main.c -o jlox
+main: src/main.cpp
+	g++	src/main.cpp -o ncc
 
 clean: 
-	rm jlox
+	rm ncc

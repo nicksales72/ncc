@@ -7,6 +7,7 @@
 class NccCompiler {
     public:
         NccCompiler();
+        ~NccCompiler() = default;
         void runFile(std::string path);
         void error(std::string line, std::string message);
     private:
@@ -22,13 +23,13 @@ class Token {
 
 class Scanner {
     public: 
-        Scanner();
+        Scanner(std::string source);
         std::vector<Token> scanTokens();
 };
 
-Scanner::Scanner() {
+Scanner::Scanner(std::string source) {
     // remove
-    std::cout << "scanner\n";
+    std::cout << source;
 }
 
 NccCompiler::NccCompiler() { }
@@ -42,7 +43,7 @@ void NccCompiler::runFile(std::string path) {
 }
 
 void NccCompiler::run(std::string source) {
-    Scanner scanner;
+    Scanner scanner(source);
     //std::vector<Token> tokens = scanner.scanTokens();
 
     /*

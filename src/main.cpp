@@ -8,8 +8,7 @@ int main(int argc, char **argv) {
 
     if (argc == 2) {
         compiler.runFile(argv[1]);
-    } 
-    else {
+    } else {
         std::cerr << "Usage: ./ncc <file>\n";
         exit(64);
     }

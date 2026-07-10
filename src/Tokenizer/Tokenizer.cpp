@@ -1,7 +1,7 @@
 #include <regex>
 
-#include "Tokenizer.h"
-#include "../Helpers/Helpers.h"
+#include "Tokenizer.hpp"
+#include "../Helpers/Helpers.hpp"
 
 Tokenizer::Tokenizer(const std::string &path) {
     std::vector<char> bytes = readFile(path);
@@ -24,7 +24,8 @@ std::vector<TokenType> Tokenizer::tokenizeFile(const std::vector<char> &bytes) {
 
     for (char token : bytes) {
         //std::cout << last_token << '\n';
-        if (token == ' ' || token == '{' || token == '}' || token == '(' || token == ')' || token == ';') {
+        if (token == ' ' || token == '{' || token == '}' || 
+            token == '(' || token == ')' || token == ';') {
             switch (token) {
                 case '{': 
                     tokenize_vec.push_back(TOKEN_LEFT_BRACE);

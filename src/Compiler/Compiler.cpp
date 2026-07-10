@@ -1,3 +1,3 @@
-#include "Compiler.h"
+#include "Compiler.hpp"
 
 Compiler::Compiler() { }

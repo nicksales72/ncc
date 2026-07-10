@@ -24,8 +24,7 @@ std::vector<TokenType> Tokenizer::tokenizeFile(const std::vector<char> &bytes) {
     std::cout << '\n';
 
     for (char token : bytes) {
-        if (token == ' ' || token == '{' || token == '}' || 
-            token == '(' || token == ')' || token == ';') {
+        if (token == ' ' || token == '{' || token == '}' || token == '(' || token == ')' || token == ';') {
             if (last_token == "int") {
                 tokenize_vec.push_back(TOKEN_INT);
             } else if (last_token == "return") {

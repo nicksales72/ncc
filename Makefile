@@ -1,29 +1,34 @@
 CXX = g++
-OBJS  = main.o compiler.o tokenizer.o helpers.o
-TEST_OBJS  = test_tokenizer.o 
+OBJS  = build/main.o build/compiler.o build/tokenizer.o build/helpers.o
+TEST_OBJS  = build/test_tokenizer.o build/tokenizer.o build/helpers.o
 CXXFLAGS = -g -c -Wall -Wextra -Wpedantic -Werror -std=c++20
-TEST_CXXFLAGS = -lgtest_main -lgtest -lpthread
+GTEST_CXXFLAGS = -lgtest_main -lgtest -lpthread
+
+all: ncc
 
 ncc: $(OBJS) 
 	$(CXX) $(OBJS) -o ncc 
 
-test: test_tokenizer.o tokenizer.o helpers.o
-	$(CXX) $(TEST_CXXFLAGS) test_tokenizer.o tokenizer.o helpers.o -o test_tokenizer
+test: $(TEST_OBJS) | build
+	$(CXX) $(GTEST_CXXFLAGS) $(TEST_OBJS) -o test_tokenizer
 
-test_tokenizer.o: test/test_tokenizer.cpp
-	$(CXX) $(CXXFLAGS) test/test_tokenizer.cpp -o test_tokenizer.o
+build/test_tokenizer.o: test/test_tokenizer.cpp | build
+	$(CXX) $(CXXFLAGS) test/test_tokenizer.cpp -o build/test_tokenizer.o
 
-main.o: src/main.cpp
-	$(CXX) $(CXXFLAGS) src/main.cpp -o main.o
+build/main.o: src/main.cpp | build
+	$(CXX) $(CXXFLAGS) -c src/main.cpp -o build/main.o
 
-compiler.o: src/compiler/compiler.cpp
-	$(CXX) $(CXXFLAGS) src/compiler/compiler.cpp -o compiler.o
+build/compiler.o: src/compiler/compiler.cpp | build
+	$(CXX) $(CXXFLAGS) -c src/compiler/compiler.cpp -o build/compiler.o
 
-tokenizer.o: src/tokenizer/tokenizer.cpp 
-	$(CXX) $(CXXFLAGS) src/tokenizer/tokenizer.cpp -o tokenizer.o
+build/tokenizer.o: src/tokenizer/tokenizer.cpp | build
+	$(CXX) $(CXXFLAGS) -c src/tokenizer/tokenizer.cpp -o build/tokenizer.o
 
-helpers.o: src/helpers/helpers.cpp 
-	$(CXX) $(CXXFLAGS) src/helpers/helpers.cpp -o helpers.o
+build/helpers.o: src/helpers/helpers.cpp | build
+	$(CXX) $(CXXFLAGS) -c src/helpers/helpers.cpp -o build/helpers.o
+
+build: 
+	mkdir -p build/
 
 clean: 
-	rm $(OBJS) $(TEST_OBJS) ncc test_tokenizer
+	rm -rf build ncc test_tokenizer

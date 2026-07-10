@@ -9,6 +9,9 @@ Right now the tokenizer is *mostly* working (besides some error handling), which
 ```shell
 make 
 ./ncc examples/example.c
+```
+Which outputs:
+```shell
 int main() {
     return 2;
 }

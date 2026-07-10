@@ -1,2 +1,9 @@
-ncc
-*.o
+*
+
+!*/ 
+!*.hpp 
+!*.cpp 
+!.gitignore
+!Makefile
+!README.md
+!LICENSE

@@ -2,6 +2,7 @@
 #define TOKENIZER_H
 
 #include <iostream>
+#include <vector>
 
 enum TokenType {
     TOKEN_LEFT_BRACE, TOKEN_RIGHT_BRACE,      // {  }
@@ -18,7 +19,7 @@ class Tokenizer {
         Tokenizer(std::string path);
         ~Tokenizer() = default;
     private:
-        //std::vector 
+        std::vector<TokenType> tokenizeFile(std::vector<char>&);
 };
 
 

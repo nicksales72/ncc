@@ -1,6 +1,6 @@
 #include <fstream>
 
-#include "Helpers.hpp"
+#include "helpers.hpp"
 
 std::vector<char> readFile(const std::string &path){
     std::ifstream input(path, std::ios::binary);

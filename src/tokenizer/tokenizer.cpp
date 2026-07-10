@@ -1,12 +1,13 @@
 #include <regex>
 
-#include "Tokenizer.hpp"
-#include "../Helpers/Helpers.hpp"
+#include "tokenizer.hpp"
+#include "../helpers/helpers.hpp"
 
 Tokenizer::Tokenizer(const std::string &path) {
     std::vector<char> bytes = readFile(path);
-    std::vector<TokenType> tokenized_file = tokenizeFile(bytes);
+    tokenized_file = tokenizeFile(bytes);
 
+    // remove this
     for (TokenType x : tokenized_file) {
         std::cout << tokenToString(x) << "\n";
     }
@@ -23,9 +24,18 @@ std::vector<TokenType> Tokenizer::tokenizeFile(const std::vector<char> &bytes) {
     std::cout << '\n';
 
     for (char token : bytes) {
-        //std::cout << last_token << '\n';
         if (token == ' ' || token == '{' || token == '}' || 
             token == '(' || token == ')' || token == ';') {
+            if (last_token == "int") {
+                tokenize_vec.push_back(TOKEN_INT);
+            } else if (last_token == "return") {
+                tokenize_vec.push_back(TOKEN_RETURN);
+            } else if (std::regex_match(last_token, std::regex("[a-zA-Z]\\w*"))) {
+                tokenize_vec.push_back(TOKEN_IDENTIFIER);
+            } else if (std::regex_match(last_token, std::regex("[0-9]+"))) {
+                tokenize_vec.push_back(TOKEN_INT_LIT);
+            }
+
             switch (token) {
                 case '{': 
                     tokenize_vec.push_back(TOKEN_LEFT_BRACE);
@@ -43,17 +53,7 @@ std::vector<TokenType> Tokenizer::tokenizeFile(const std::vector<char> &bytes) {
                     tokenize_vec.push_back(TOKEN_SEMICOLON);
                     break;
             }
-
-            if (last_token == "int") {
-                tokenize_vec.push_back(TOKEN_INT);
-            } else if (last_token == "return") {
-                tokenize_vec.push_back(TOKEN_RETURN);
-            } else if (std::regex_match(last_token, std::regex("[a-zA-Z]\\w*"))) {
-                tokenize_vec.push_back(TOKEN_IDENTIFIER);
-            } else if (std::regex_match(last_token, std::regex("[0-9]+"))) {
-                tokenize_vec.push_back(TOKEN_INT_LIT);
-            }
-
+            
             last_token = "";
             continue;
         } else if (std::isalnum(token)) {

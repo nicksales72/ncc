@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-#include "../Tokenizer/Tokenizer.hpp"
+#include "../tokenizer/tokenizer.hpp"
 
 std::vector<char> readFile(const std::string&);
 std::string tokenToString(TokenType t);

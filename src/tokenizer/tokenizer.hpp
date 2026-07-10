@@ -18,6 +18,7 @@ class Tokenizer {
     public: 
         Tokenizer(const std::string&);
         ~Tokenizer() = default;
+        std::vector<TokenType> tokenized_file;
     private:
         std::vector<TokenType> tokenizeFile(const std::vector<char>&);
 };

@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Tokenizer/Tokenizer.hpp"
+#include "tokenizer/tokenizer.hpp"
 
 int main(int argc, char **argv) {
     if (argc == 2) {

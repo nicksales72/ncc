@@ -3,6 +3,8 @@
 !*/ 
 !*.hpp 
 !*.cpp 
+!*.h
+!*.c
 !.gitignore
 !Makefile
 !README.md

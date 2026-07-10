@@ -16,11 +16,10 @@ enum TokenType {
 
 class Tokenizer {
     public: 
-        Tokenizer(std::string path);
+        Tokenizer(const std::string&);
         ~Tokenizer() = default;
     private:
-        std::vector<TokenType> tokenizeFile(std::vector<char>&);
+        std::vector<TokenType> tokenizeFile(const std::vector<char>&);
 };
-
 
 #endif

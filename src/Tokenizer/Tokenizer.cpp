@@ -3,7 +3,7 @@
 #include "Tokenizer.h"
 #include "../Helpers/Helpers.h"
 
-Tokenizer::Tokenizer(std::string path) {
+Tokenizer::Tokenizer(const std::string &path) {
     std::vector<char> bytes = readFile(path);
     std::vector<TokenType> tokenized_file = tokenizeFile(bytes);
 
@@ -12,7 +12,7 @@ Tokenizer::Tokenizer(std::string path) {
     }
 }
 
-std::vector<TokenType> Tokenizer::tokenizeFile(std::vector<char>& bytes) {
+std::vector<TokenType> Tokenizer::tokenizeFile(const std::vector<char> &bytes) {
     std::string last_token = "";
     std::vector<TokenType> tokenize_vec = {};
 

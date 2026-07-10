@@ -6,7 +6,7 @@
 
 #include "../Tokenizer/Tokenizer.h"
 
-std::vector<char> readFile(std::string path);
+std::vector<char> readFile(const std::string&);
 std::string tokenToString(TokenType t);
 
 #endif

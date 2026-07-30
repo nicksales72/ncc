@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <variant>
 
 enum TokenType {
     TOKEN_LEFT_BRACE, TOKEN_RIGHT_BRACE,      // {  }
@@ -14,13 +15,22 @@ enum TokenType {
     TOKEN_EOF
 };
 
+struct Token {
+    TokenType type; 
+    std::variant<std::monostate, long, std::string> value;
+    // need to add int line; later
+    bool operator==(const Token &other) const {
+        return type == other.type && value == other.value;
+    }
+};
+
 class Tokenizer {
     public: 
-        Tokenizer(const std::vector<char> &bytes);
+        Tokenizer(const std::string&);
         ~Tokenizer() = default;
-        std::vector<TokenType> tokenized_file;
+        std::vector<Token> tokenized_file;
     private:
-        std::vector<TokenType> tokenizeFile(const std::vector<char>&);
+        std::vector<Token> tokenizeFile(const std::vector<char>&);
 };
 
 #endif

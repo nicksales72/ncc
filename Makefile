@@ -1,5 +1,5 @@
 CXX = g++
-OBJS  = build/main.o build/compiler.o build/tokenizer.o build/helpers.o
+OBJS  = build/main.o build/tokenizer.o build/helpers.o
 TEST_OBJS  = build/test_tokenizer.o build/tokenizer.o build/helpers.o
 CXXFLAGS = -g -c -Wall -Wextra -Wpedantic -Werror -std=c++20
 GTEST_CXXFLAGS = -lgtest_main -lgtest -lpthread
@@ -17,9 +17,6 @@ build/test_tokenizer.o: test/test_tokenizer.cpp | build
 
 build/main.o: src/main.cpp | build
 	$(CXX) $(CXXFLAGS) -c src/main.cpp -o build/main.o
-
-build/compiler.o: src/compiler/compiler.cpp | build
-	$(CXX) $(CXXFLAGS) -c src/compiler/compiler.cpp -o build/compiler.o
 
 build/tokenizer.o: src/tokenizer/tokenizer.cpp | build
 	$(CXX) $(CXXFLAGS) -c src/tokenizer/tokenizer.cpp -o build/tokenizer.o

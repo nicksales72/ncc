@@ -16,7 +16,7 @@ enum TokenType {
 
 class Tokenizer {
     public: 
-        Tokenizer(const std::string&);
+        Tokenizer(const std::vector<char> &bytes);
         ~Tokenizer() = default;
         std::vector<TokenType> tokenized_file;
     private:

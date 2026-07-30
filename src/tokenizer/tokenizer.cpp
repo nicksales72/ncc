@@ -3,8 +3,7 @@
 #include "tokenizer.hpp"
 #include "../helpers/helpers.hpp"
 
-Tokenizer::Tokenizer(const std::string &path) {
-    std::vector<char> bytes = readFile(path);
+Tokenizer::Tokenizer(const std::vector<char> &bytes) {
     tokenized_file = tokenizeFile(bytes);
 
     // remove this

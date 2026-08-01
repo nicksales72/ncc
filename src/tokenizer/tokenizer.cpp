@@ -6,6 +6,12 @@
 Tokenizer::Tokenizer(const std::string &path) {
     const std::vector<char> bytes = readFile(path);
     tokenized_file = tokenizeFile(bytes);
+
+    // remove this
+    for (Token token : tokenized_file) {
+        std::cout << token << '\n';
+    }
+
     parseTokens(tokenized_file);
 }
 
@@ -60,42 +66,102 @@ std::deque<Token> Tokenizer::tokenizeFile(const std::vector<char> &bytes) {
 
 struct Exp {
     int value{};   
+    friend std::ostream& operator<<(std::ostream& os, const Exp& exp) {
+        os << "Exp(" << exp.value;
+        return os;
+    }
 };
 
 struct Statement {
     Exp return_expression;
+    friend std::ostream& operator<<(std::ostream& os, const Statement& statement) {
+        os << "Statement(" << statement.return_expression;
+        return os;
+    }
 };
 
 struct Function {
+    std::string function_name;
     Statement function_statement;
+    friend std::ostream& operator<<(std::ostream& os, const Function& function) {
+        os << "Function(Name: " << function.function_name << ", " << function.function_statement << ")";
+        return os;
+    }
 };
 
 struct Program {
     Function program_function;
+    friend std::ostream& operator<<(std::ostream& os, const Program& program) {
+        os << "Program(" << program.program_function << ")" << '\n';
+        return os;
+    }
 };
 
-//Exp parseExp(std::deque<Token> &tokenized_file) {
-
-//}
-
-//Statement parseStatement(std::deque<Token> &tokenized_file) {
+Statement parseStatement(std::deque<Token> &tokenized_file) {
     /*
      <statement> ::= "return" <exp> ";"
      <exp> ::= <int>
-    */
-//}
+     */
 
-//Function parseFunction(std::deque<Token> &tokenized_file) {
+    if (tokenized_file[0].type != TOKEN_RETURN) {
+        // fail or something
+        std::cout << "we fail on statement";
+    }
 
-//}
+    int value;
+    for (Token token : tokenized_file) {
+        if (token.type == TOKEN_INT_LIT) value = 2;
+        if (token.type != TOKEN_SEMICOLON) {
+            tokenized_file.pop_front();
+            continue;
+        } else {
+            tokenized_file.pop_front();
+            break;
+        }
+    } 
+    return Statement{value};
+}
 
-//Program parseProgram(std::deque<Token> &tokenized_file) {
-//}
+Function parseFunction(std::deque<Token> &tokenized_file) {
+    /*
+     <function> ::= "int" <id> "(" ")" "{" <statement> "}"
+     */
+    if (tokenized_file[0].type != TOKEN_INT) {
+        // fail or something
+        std::cout << "we fail on function";
+    }
+
+    std::string function_name;
+    for (Token token : tokenized_file) {
+        if (token.type == TOKEN_IDENTIFIER) function_name = "main"; // temp: need to make this the identifier name 
+        if (token.type != TOKEN_LEFT_BRACE) {
+            tokenized_file.pop_front();
+            continue;
+        } else {
+            tokenized_file.pop_front();
+            break;
+        }
+    } 
+    return Function{.function_name = function_name, .function_statement=parseStatement(tokenized_file)};
+}
+
+Program parseProgram(std::deque<Token> &tokenized_file) {
+    /* 
+     <program> ::= <function>
+     */
+    return Program{parseFunction(tokenized_file)};
+}
 
 void parseTokens(std::deque<Token> &tokenized_file) { 
+    Program program = parseProgram(tokenized_file);
+    if (!tokenized_file.empty()) tokenized_file.pop_front();
+
+    // remove this
+    std::cout << '\n';
     for (Token token : tokenized_file) {
         std::cout << token << '\n';
     }
+    std::cout << "AST: " << program;
 }
 
 std::string tokenToString(TokenType t) {

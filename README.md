@@ -5,7 +5,7 @@ int main() {
     return 2;
 }
 ```
-Right now the tokenizer is *mostly* working (besides some error handling), which can be seen by running the following:
+Right now the tokenizer and the parser for the AST are *mostly* working (besides some error handling), which can be seen by running the following:
 ```shell
 make 
 ./ncc examples/example.c
@@ -25,4 +25,6 @@ TOKEN_RETURN, (none)
 TOKEN_INT_LIT, 2
 TOKEN_SEMICOLON, (none)
 TOKEN_RIGHT_BRACE, (none)
+
+AST: Program(Function(Name: main, Statement(Exp(2))
 ```

@@ -26,5 +26,5 @@ TOKEN_INT_LIT, 2
 TOKEN_SEMICOLON, (none)
 TOKEN_RIGHT_BRACE, (none)
 
-AST: Program(Function(Name: main, Statement(Exp(2))
+AST: Program(Function(Name: main, Statement(Exp(2))))
 ```

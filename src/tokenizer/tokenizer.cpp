@@ -67,7 +67,7 @@ std::deque<Token> Tokenizer::tokenizeFile(const std::vector<char> &bytes) {
 struct Exp {
     int value{};   
     friend std::ostream& operator<<(std::ostream& os, const Exp& exp) {
-        os << "Exp(" << exp.value;
+        os << "Exp(" << exp.value << ")";
         return os;
     }
 };
@@ -75,7 +75,7 @@ struct Exp {
 struct Statement {
     Exp return_expression;
     friend std::ostream& operator<<(std::ostream& os, const Statement& statement) {
-        os << "Statement(" << statement.return_expression;
+        os << "Statement(" << statement.return_expression << ")";
         return os;
     }
 };

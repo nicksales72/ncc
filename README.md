@@ -8,7 +8,7 @@ int main() {
 Right now the tokenizer and the parser for the AST are *mostly* working (besides some error handling), which can be seen by running the following:
 ```shell
 make 
-./ncc examples/example.c
+./ncc examples/example.c -o example
 ```
 Which outputs:
 ```shell

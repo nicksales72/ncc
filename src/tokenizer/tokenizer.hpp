@@ -20,7 +20,7 @@ std::string tokenToString(TokenType t);
 
 struct Token {
     TokenType type; 
-    std::variant<std::monostate, long, std::string> value;
+    std::variant<std::monostate, int, std::string> value;
     // need to add int line; later
     bool operator==(const Token &other) const {
         return type == other.type && value == other.value;

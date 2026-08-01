@@ -89,7 +89,7 @@ Statement parseStatement(std::deque<Token> &tokenized_file) {
             break;
         }
     } 
-    return Statement{value};
+    return Statement{Exp{value}};
 }
 
 Function parseFunction(std::deque<Token> &tokenized_file) {

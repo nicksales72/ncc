@@ -27,7 +27,7 @@ struct Token {
     }
 
     friend std::ostream& operator<<(std::ostream& os, const Token& token) {
-        os << tokenToString(token.type) << ", ";
+        os << "Token Type: " << tokenToString(token.type) << ", " << "Token Value: ";
 
         std::visit(
             [&os](const auto& val) {

@@ -4,7 +4,7 @@
 #include "tokenizer.hpp"
 #include "../helpers/helpers.hpp"
 
-Tokenizer::Tokenizer(const std::string &path) {
+Tokenizer::Tokenizer(const std::string& path) {
     const std::vector<char> bytes = readFile(path);
     tokenized_file = tokenizeFile(bytes);
 
@@ -16,7 +16,7 @@ Tokenizer::Tokenizer(const std::string &path) {
     std::cout << '\n';
 }
 
-std::deque<Token> Tokenizer::tokenizeFile(const std::vector<char> &bytes) {
+std::deque<Token> Tokenizer::tokenizeFile(const std::vector<char>& bytes) {
     std::string last_token = "";
     std::deque<Token> tokenize_queue = {};
 
@@ -70,7 +70,7 @@ std::deque<Token> Tokenizer::tokenizeFile(const std::vector<char> &bytes) {
     return tokenize_queue;
 }
 
-Statement parseStatement(std::deque<Token> &tokenized_file) {
+Statement parseStatement(std::deque<Token>& tokenized_file) {
     /*
      <statement> ::= "return" <exp> ";"
      <exp> ::= <int>
@@ -96,7 +96,7 @@ Statement parseStatement(std::deque<Token> &tokenized_file) {
     return Statement{Exp{value}};
 }
 
-Function parseFunction(std::deque<Token> &tokenized_file) {
+Function parseFunction(std::deque<Token>& tokenized_file) {
     /*
      <function> ::= "int" <id> "(" ")" "{" <statement> "}"
      */
@@ -120,14 +120,14 @@ Function parseFunction(std::deque<Token> &tokenized_file) {
     return Function{.function_name = function_name, .function_statement=parseStatement(tokenized_file)};
 }
 
-Program parseProgram(std::deque<Token> &tokenized_file) {
+Program parseProgram(std::deque<Token>& tokenized_file) {
     /* 
      <program> ::= <function>
      */
     return Program{parseFunction(tokenized_file)};
 }
 
-Program parseTokens(std::deque<Token> &tokenized_file) { 
+Program parseTokens(std::deque<Token>& tokenized_file) { 
     Program program = parseProgram(tokenized_file);
     if (!tokenized_file.empty()) tokenized_file.pop_front(); // last right brace
 

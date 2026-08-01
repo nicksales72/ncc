@@ -23,7 +23,7 @@ struct Token {
     std::variant<std::monostate, int, std::string> value;
     int line;
 
-    bool operator==(const Token &other) const {
+    bool operator==(const Token& other) const {
         return type == other.type && value == other.value;
     }
 
@@ -94,5 +94,5 @@ struct Program {
     }
 };
 
-Program parseTokens(std::deque<Token> &tokenized_file);
+Program parseTokens(std::deque<Token>& tokenized_file);
 #endif

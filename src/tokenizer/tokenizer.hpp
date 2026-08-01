@@ -16,6 +16,8 @@ enum TokenType {
     TOKEN_EOF
 };
 
+std::string tokenToString(TokenType t);
+
 struct Token {
     TokenType type; 
     std::variant<std::monostate, long, std::string> value;
@@ -23,7 +25,28 @@ struct Token {
     bool operator==(const Token &other) const {
         return type == other.type && value == other.value;
     }
+
+    friend std::ostream& operator<<(std::ostream& os, const Token& token) {
+        os << tokenToString(token.type) << ", ";
+
+        std::visit(
+            [&os](const auto& val) {
+                using T = std::decay_t<decltype(val)>;
+
+                if constexpr (std::is_same_v<T, std::monostate>) {
+                    os << "(none)";
+                } else {
+                    os << val;
+                }
+            },
+            token.value
+        );
+
+        return os;
+    }
 };
+
+void parseTokens(std::deque<Token> &tokenized_file);
 
 class Tokenizer {
     public: 
@@ -33,7 +56,5 @@ class Tokenizer {
     private:
         std::deque<Token> tokenizeFile(const std::vector<char>&);
 };
-
-void parseTokens(std::deque<Token> &tokenized_file);
 
 #endif

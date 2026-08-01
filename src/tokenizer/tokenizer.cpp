@@ -74,17 +74,42 @@ struct Program {
     Function program_function;
 };
 
-//Statement parseStatement(std::vector<Token> &tokenize_file) {
+//Exp parseExp(std::deque<Token> &tokenized_file) {
+
+//}
+
+//Statement parseStatement(std::deque<Token> &tokenized_file) {
     /*
      <statement> ::= "return" <exp> ";"
      <exp> ::= <int>
     */
 //}
 
+//Function parseFunction(std::deque<Token> &tokenized_file) {
+
+//}
+
+//Program parseProgram(std::deque<Token> &tokenized_file) {
+//}
+
 void parseTokens(std::deque<Token> &tokenized_file) { 
-    tokenPrint(tokenized_file);
-    tokenized_file.pop_front();
-    std::cout << '\n';
-    tokenPrint(tokenized_file);
+    for (Token token : tokenized_file) {
+        std::cout << token << '\n';
+    }
 }
 
+std::string tokenToString(TokenType t) {
+    switch (t) {
+        case TokenType::TOKEN_LEFT_BRACE: return "TOKEN_LEFT_BRACE";
+        case TokenType::TOKEN_RIGHT_BRACE: return "TOKEN_RIGHT_BRACE";
+        case TokenType::TOKEN_LEFT_PAREN: return "TOKEN_LEFT_PAREN";
+        case TokenType::TOKEN_RIGHT_PAREN: return "TOKEN_RIGHT_PAREN";
+        case TokenType::TOKEN_SEMICOLON: return "TOKEN_SEMICOLON";
+        case TokenType::TOKEN_INT: return "TOKEN_INT";
+        case TokenType::TOKEN_RETURN: return "TOKEN_RETURN";
+        case TokenType::TOKEN_IDENTIFIER: return "TOKEN_IDENTIFIER";
+        case TokenType::TOKEN_INT_LIT: return "TOKEN_INT_LIT";
+        case TokenType::TOKEN_EOF: return "TOKEN_EOF";
+    }
+    return "?";
+}

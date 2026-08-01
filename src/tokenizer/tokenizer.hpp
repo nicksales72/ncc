@@ -46,8 +46,6 @@ struct Token {
     }
 };
 
-void parseTokens(std::deque<Token> &tokenized_file);
-
 class Tokenizer {
     public: 
         Tokenizer(const std::string&);
@@ -57,4 +55,38 @@ class Tokenizer {
         std::deque<Token> tokenizeFile(const std::vector<char>&);
 };
 
+struct Exp {
+    int value{};   
+    friend std::ostream& operator<<(std::ostream& os, const Exp& exp) {
+        os << "Exp(" << exp.value << ")";
+        return os;
+    }
+};
+
+struct Statement {
+    Exp return_expression;
+    friend std::ostream& operator<<(std::ostream& os, const Statement& statement) {
+        os << "Statement(" << statement.return_expression << ")";
+        return os;
+    }
+};
+
+struct Function {
+    std::string function_name;
+    Statement function_statement;
+    friend std::ostream& operator<<(std::ostream& os, const Function& function) {
+        os << "Function(Name: " << function.function_name << ", " << function.function_statement << ")";
+        return os;
+    }
+};
+
+struct Program {
+    Function program_function;
+    friend std::ostream& operator<<(std::ostream& os, const Program& program) {
+        os << "Program(" << program.program_function << ")" << '\n';
+        return os;
+    }
+};
+
+void parseTokens(std::deque<Token> &tokenized_file);
 #endif

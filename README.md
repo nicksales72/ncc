@@ -18,15 +18,15 @@ int main() {
 }
 
 -----TOKENS-----
-TOKEN_INT, (none)
-TOKEN_IDENTIFIER, main
-TOKEN_LEFT_PAREN, (none)
-TOKEN_RIGHT_PAREN, (none)
-TOKEN_LEFT_BRACE, (none)
-TOKEN_RETURN, (none)
-TOKEN_INT_LIT, 2
-TOKEN_SEMICOLON, (none)
-TOKEN_RIGHT_BRACE, (none)
+Token Type: TOKEN_INT, Token Value: (none)
+Token Type: TOKEN_IDENTIFIER, Token Value: main
+Token Type: TOKEN_LEFT_PAREN, Token Value: (none)
+Token Type: TOKEN_RIGHT_PAREN, Token Value: (none)
+Token Type: TOKEN_LEFT_BRACE, Token Value: (none)
+Token Type: TOKEN_RETURN, Token Value: (none)
+Token Type: TOKEN_INT_LIT, Token Value: 2
+Token Type: TOKEN_SEMICOLON, Token Value: (none)
+Token Type: TOKEN_RIGHT_BRACE, Token Value: (none)
 
 -----TOKENS AFTER AST CREATION (SHOULD BE EMPTY)-----
 

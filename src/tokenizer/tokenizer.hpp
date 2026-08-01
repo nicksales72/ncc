@@ -33,4 +33,6 @@ class Tokenizer {
         std::vector<Token> tokenizeFile(const std::vector<char>&);
 };
 
+void parseTokens(std::vector<Token> tokenized_file);
+
 #endif

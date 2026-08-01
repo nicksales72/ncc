@@ -23,3 +23,17 @@ std::string tokenToString(TokenType t) {
     }
     return "?";
 }
+
+void tokenPrint(std::vector<Token> tokenized_file) {
+    for (Token x : tokenized_file) {
+        std::cout << tokenToString(x.type) << ", ";
+        std::visit([](auto&& val) {
+            using T = std::decay_t<decltype(val)>;
+            if constexpr (std::is_same_v<T, std::monostate>)
+                std::cout << "(none)";
+            else
+                std::cout << val;
+        }, x.value);
+        std::cout << "\n";
+    }
+}

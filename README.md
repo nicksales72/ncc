@@ -12,10 +12,12 @@ make
 ```
 Which outputs:
 ```shell
+-----PROGRAM-----
 int main() {
     return 2;
 }
 
+-----TOKENS-----
 TOKEN_INT, (none)
 TOKEN_IDENTIFIER, main
 TOKEN_LEFT_PAREN, (none)
@@ -26,5 +28,6 @@ TOKEN_INT_LIT, 2
 TOKEN_SEMICOLON, (none)
 TOKEN_RIGHT_BRACE, (none)
 
-AST: Program(Function(Name: main, Statement(Exp(2))))
+-----AST-----
+Program(Function(Name: main, Statement(Exp(2))))
 ```

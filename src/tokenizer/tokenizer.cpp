@@ -27,40 +27,44 @@ std::deque<Token> Tokenizer::tokenizeFile(const std::vector<char> &bytes) {
     }
     std::cout << '\n';
 
-    for (char token : bytes) {
-        if (token == ' ' || token == '{' || token == '}' || token == '(' || token == ')' || token == ';') { 
+    int line_num = 1;
+    for (char character : bytes) {
+        if (character == '\n') {
+            line_num++;
+        } else if (character == ' ' || character == '{' || character == '}' || 
+                   character == '(' || character == ')' || character == ';') { 
             if (last_token == "int") {
-                tokenize_queue.push_back(Token{.type=TOKEN_INT, .value = std::monostate{}});
+                tokenize_queue.push_back(Token{.type=TOKEN_INT, .value = std::monostate{}, .line=line_num});
             } else if (last_token == "return") {
-                tokenize_queue.push_back(Token{.type=TOKEN_RETURN, .value = std::monostate{}});
+                tokenize_queue.push_back(Token{.type=TOKEN_RETURN, .value = std::monostate{}, .line=line_num});
             } else if (std::regex_match(last_token, std::regex("[a-zA-Z]\\w*"))) {
-                tokenize_queue.push_back(Token{.type=TOKEN_IDENTIFIER, .value=last_token});
+                tokenize_queue.push_back(Token{.type=TOKEN_IDENTIFIER, .value=last_token, .line=line_num});
             } else if (std::regex_match(last_token, std::regex("[0-9]+"))) {
-                tokenize_queue.push_back(Token{.type=TOKEN_INT_LIT, .value=std::stoi(last_token)});
+                tokenize_queue.push_back(Token{.type=TOKEN_INT_LIT, .value=std::stoi(last_token), .line=line_num});
             }
 
-            switch (token) {
+            switch (character) {
                 case '{': 
-                    tokenize_queue.push_back(Token{.type=TOKEN_LEFT_BRACE, .value = std::monostate{}});
+                    tokenize_queue.push_back(Token{.type=TOKEN_LEFT_BRACE, .value = std::monostate{}, .line=line_num});
                     break;
                 case '}': 
-                    tokenize_queue.push_back(Token{.type=TOKEN_RIGHT_BRACE, .value = std::monostate{}});
+                    tokenize_queue.push_back(Token{.type=TOKEN_RIGHT_BRACE, .value = std::monostate{}, .line=line_num});
                     break;
                 case '(': 
-                    tokenize_queue.push_back(Token{.type=TOKEN_LEFT_PAREN, .value = std::monostate{}});
+                    tokenize_queue.push_back(Token{.type=TOKEN_LEFT_PAREN, .value = std::monostate{}, .line=line_num});
                     break;
                 case ')': 
-                    tokenize_queue.push_back(Token{.type=TOKEN_RIGHT_PAREN, .value = std::monostate{}});
+                    tokenize_queue.push_back(Token{.type=TOKEN_RIGHT_PAREN, .value = std::monostate{}, .line=line_num});
                     break;
                 case ';': 
-                    tokenize_queue.push_back(Token{.type=TOKEN_SEMICOLON, .value = std::monostate{}});
+                    tokenize_queue.push_back(Token{.type=TOKEN_SEMICOLON, .value = std::monostate{}, .line=line_num});
                     break;
             }
             
             last_token = "";
             continue;
-        } else if (std::isalnum(token)) {
-            last_token += token;
+        } else if (std::isalnum(character)) {
+            last_token += character;
         }
     } 
     return tokenize_queue;

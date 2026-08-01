@@ -21,13 +21,13 @@ std::string tokenToString(TokenType t);
 struct Token {
     TokenType type; 
     std::variant<std::monostate, int, std::string> value;
-    // need to add int line; later
+    int line;
     bool operator==(const Token &other) const {
         return type == other.type && value == other.value;
     }
 
     friend std::ostream& operator<<(std::ostream& os, const Token& token) {
-        os << "Token Type: " << tokenToString(token.type) << ", " << "Token Value: ";
+        os << "Token Type: " << tokenToString(token.type) << ", " << "Token Line: " << token.line << ", " << "Token Value: ";
 
         std::visit(
             [&os](const auto& val) {

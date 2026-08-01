@@ -9,6 +9,7 @@ Tokenizer::Tokenizer(const std::string &path) {
     tokenized_file = tokenizeFile(bytes);
 
     // remove this
+    std::cout << "-----TOKENS-----" << '\n';
     for (Token token : tokenized_file) {
         std::cout << token << '\n';
     }
@@ -21,6 +22,7 @@ std::deque<Token> Tokenizer::tokenizeFile(const std::vector<char> &bytes) {
     std::deque<Token> tokenize_queue = {};
 
     // remove this
+    std::cout << "-----PROGRAM-----" << '\n';
     for (char temp : bytes) {
         std::cout << temp;
     }
@@ -131,7 +133,8 @@ void parseTokens(std::deque<Token> &tokenized_file) {
     for (Token token : tokenized_file) {
         std::cout << token << '\n';
     }
-    std::cout << "AST: " << program;
+    std::cout << "-----AST-----" << '\n';
+    std::cout << program;
 }
 
 std::string tokenToString(TokenType t) {

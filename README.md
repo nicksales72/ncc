@@ -28,6 +28,8 @@ TOKEN_INT_LIT, 2
 TOKEN_SEMICOLON, (none)
 TOKEN_RIGHT_BRACE, (none)
 
+-----TOKENS AFTER AST CREATION (SHOULD BE EMPTY)-----
+
 -----AST-----
 Program(Function(Name: main, Statement(Exp(2))))
 ```

@@ -31,8 +31,8 @@ std::deque<Token> Tokenizer::tokenizeFile(const std::vector<char> &bytes) {
     for (char character : bytes) {
         if (character == '\n') {
             line_num++;
-        } else if (character == ' ' || character == '{' || character == '}' || 
-                   character == '(' || character == ')' || character == ';') { 
+        } else if (character == ' ' || character == '{' || character == '}' 
+                   || character == '(' || character == ')' || character == ';') { 
             if (last_token == "int") {
                 tokenize_queue.push_back(Token{.type=TOKEN_INT, .value = std::monostate{}, .line=line_num});
             } else if (last_token == "return") {
@@ -83,8 +83,8 @@ Statement parseStatement(std::deque<Token> &tokenized_file) {
 
     int value;
     for (Token token : tokenized_file) {
-        if (token.type == TOKEN_INT_LIT &&
-            std::holds_alternative<int>(token.value)) value = std::get<int>(token.value); 
+        if (token.type == TOKEN_INT_LIT 
+            && std::holds_alternative<int>(token.value)) value = std::get<int>(token.value); 
         if (token.type != TOKEN_SEMICOLON) {
             tokenized_file.pop_front();
             continue;
@@ -107,8 +107,8 @@ Function parseFunction(std::deque<Token> &tokenized_file) {
 
     std::string function_name;
     for (Token token : tokenized_file) {
-        if (token.type == TOKEN_IDENTIFIER && 
-            std::holds_alternative<std::string>(token.value)) function_name = std::get<std::string>(token.value); 
+        if (token.type == TOKEN_IDENTIFIER 
+            && std::holds_alternative<std::string>(token.value)) function_name = std::get<std::string>(token.value); 
         if (token.type != TOKEN_LEFT_BRACE) {
             tokenized_file.pop_front();
             continue;

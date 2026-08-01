@@ -22,12 +22,14 @@ struct Token {
     TokenType type; 
     std::variant<std::monostate, int, std::string> value;
     int line;
+
     bool operator==(const Token &other) const {
         return type == other.type && value == other.value;
     }
 
     friend std::ostream& operator<<(std::ostream& os, const Token& token) {
-        os << "Token Type: " << tokenToString(token.type) << ", " << "Token Line: " << token.line << ", " << "Token Value: ";
+        os << "Token Type: " << tokenToString(token.type) << ", " 
+           << "Token Line: " << token.line << ", " << "Token Value: ";
 
         std::visit(
             [&os](const auto& val) {
@@ -57,6 +59,7 @@ class Tokenizer {
 
 struct Exp {
     int value{};   
+
     friend std::ostream& operator<<(std::ostream& os, const Exp& exp) {
         os << "Exp(" << exp.value << ")";
         return os;
@@ -65,6 +68,7 @@ struct Exp {
 
 struct Statement {
     Exp return_expression;
+
     friend std::ostream& operator<<(std::ostream& os, const Statement& statement) {
         os << "Statement(" << statement.return_expression << ")";
         return os;
@@ -74,6 +78,7 @@ struct Statement {
 struct Function {
     std::string function_name;
     Statement function_statement;
+
     friend std::ostream& operator<<(std::ostream& os, const Function& function) {
         os << "Function(Name: " << function.function_name << ", " << function.function_statement << ")";
         return os;
@@ -82,6 +87,7 @@ struct Function {
 
 struct Program {
     Function program_function;
+
     friend std::ostream& operator<<(std::ostream& os, const Program& program) {
         os << "Program(" << program.program_function << ")" << '\n';
         return os;

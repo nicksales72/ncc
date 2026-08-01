@@ -63,7 +63,7 @@ std::deque<Token> Tokenizer::tokenizeFile(const std::vector<char> &bytes) {
             
             last_token = "";
             continue;
-        } else if (std::isalnum(character)) {
+        } else if (std::isalnum(character) || character == '_') {
             last_token += character;
         }
     } 
@@ -129,7 +129,7 @@ Program parseProgram(std::deque<Token> &tokenized_file) {
 
 Program parseTokens(std::deque<Token> &tokenized_file) { 
     Program program = parseProgram(tokenized_file);
-    if (!tokenized_file.empty()) tokenized_file.pop_front();
+    if (!tokenized_file.empty()) tokenized_file.pop_front(); // last right brace
 
     // remove this
     std::cout << "-----TOKENS AFTER AST CREATION (SHOULD BE EMPTY)-----" << '\n';

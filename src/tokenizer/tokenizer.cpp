@@ -13,8 +13,7 @@ Tokenizer::Tokenizer(const std::string &path) {
     for (Token token : tokenized_file) {
         std::cout << token << '\n';
     }
-
-    parseTokens(tokenized_file);
+    std::cout << '\n';
 }
 
 std::deque<Token> Tokenizer::tokenizeFile(const std::vector<char> &bytes) {
@@ -129,10 +128,11 @@ void parseTokens(std::deque<Token> &tokenized_file) {
     if (!tokenized_file.empty()) tokenized_file.pop_front();
 
     // remove this
-    std::cout << '\n';
+    std::cout << "-----TOKENS AFTER AST CREATION (SHOULD BE EMPTY)-----" << '\n';
     for (Token token : tokenized_file) {
         std::cout << token << '\n';
     }
+    std::cout << '\n';
     std::cout << "-----AST-----" << '\n';
     std::cout << program;
 }

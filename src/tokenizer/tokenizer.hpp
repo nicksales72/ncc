@@ -1,5 +1,4 @@
-#ifndef TOKENIZER_H
-#define TOKENIZER_H
+#pragma once
 
 #include <iostream>
 #include <deque>
@@ -7,12 +6,17 @@
 #include <variant>
 
 enum TokenType {
-    TOKEN_LEFT_BRACE, TOKEN_RIGHT_BRACE,      // {  }
-    TOKEN_LEFT_PAREN, TOKEN_RIGHT_PAREN,      // (  )
-    TOKEN_SEMICOLON,                          // ;
-    TOKEN_INT, TOKEN_RETURN,                  // int  return
-    TOKEN_IDENTIFIER,                         // [a-zA-Z]\w*
-    TOKEN_INT_LIT,                            // [0-9]+
+    TOKEN_LEFT_BRACE,      // {
+    TOKEN_RIGHT_BRACE,     // }
+    TOKEN_LEFT_PAREN,      // (
+    TOKEN_RIGHT_PAREN,     // )
+    TOKEN_SEMICOLON,       // ;
+                           
+    TOKEN_INT,             // int
+    TOKEN_RETURN,          // return
+    TOKEN_IDENTIFIER,      // [a-zA-Z]\w*
+    TOKEN_INT_LIT,         // [0-9]+
+                           
     TOKEN_EOF
 };
 
@@ -49,20 +53,21 @@ struct Token {
 };
 
 class Tokenizer {
-    public: 
-        Tokenizer(const std::string&);
-        ~Tokenizer() = default;
-        std::deque<Token> tokenized_file;
-    private:
-        std::deque<Token> tokenizeFile(const std::vector<char>&);
+public: 
+    Tokenizer(const std::string&);
+    ~Tokenizer() = default;
+
+    std::deque<Token> tokenized_file;
+
+private:
+    std::deque<Token> tokenizeFile(const std::vector<char>&);
 };
 
 struct Exp {
     int value{};   
 
     friend std::ostream& operator<<(std::ostream& os, const Exp& exp) {
-        os << "Exp(" << exp.value << ")";
-        return os;
+        return os << "Exp(" << exp.value << ")";
     }
 };
 
@@ -70,8 +75,7 @@ struct Statement {
     Exp return_expression;
 
     friend std::ostream& operator<<(std::ostream& os, const Statement& statement) {
-        os << "Statement(" << statement.return_expression << ")";
-        return os;
+        return os << "Statement(" << statement.return_expression << ")";
     }
 };
 
@@ -80,8 +84,7 @@ struct Function {
     Statement function_statement;
 
     friend std::ostream& operator<<(std::ostream& os, const Function& function) {
-        os << "Function(Name: " << function.function_name << ", " << function.function_statement << ")";
-        return os;
+        return os << "Function(Name: " << function.function_name << ", " << function.function_statement << ")";
     }
 };
 
@@ -89,10 +92,8 @@ struct Program {
     Function program_function;
 
     friend std::ostream& operator<<(std::ostream& os, const Program& program) {
-        os << "Program(" << program.program_function << ")" << '\n';
-        return os;
+        return os << "Program(" << program.program_function << ")" << '\n';
     }
 };
 
 Program parseTokens(std::deque<Token>& tokenized_file);
-#endif

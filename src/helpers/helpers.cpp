@@ -24,7 +24,7 @@ std::string tokenToString(TokenType t) {
     return "?";
 }
 
-void tokenPrint(std::vector<Token> tokenized_file) {
+void tokenPrint(std::deque<Token> tokenized_file) {
     for (Token x : tokenized_file) {
         std::cout << tokenToString(x.type) << ", ";
         std::visit([](auto&& val) {

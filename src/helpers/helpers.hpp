@@ -8,6 +8,6 @@
 
 std::vector<char> readFile(const std::string&);
 std::string tokenToString(TokenType t);
-void tokenPrint(std::vector<Token> tokenized_file);
+void tokenPrint(std::deque<Token> tokenized_file);
 
 #endif

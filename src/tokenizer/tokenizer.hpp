@@ -2,6 +2,7 @@
 #define TOKENIZER_H
 
 #include <iostream>
+#include <deque>
 #include <vector>
 #include <variant>
 
@@ -28,11 +29,11 @@ class Tokenizer {
     public: 
         Tokenizer(const std::string&);
         ~Tokenizer() = default;
-        std::vector<Token> tokenized_file;
+        std::deque<Token> tokenized_file;
     private:
-        std::vector<Token> tokenizeFile(const std::vector<char>&);
+        std::deque<Token> tokenizeFile(const std::vector<char>&);
 };
 
-void parseTokens(std::vector<Token> tokenized_file);
+void parseTokens(std::deque<Token> &tokenized_file);
 
 #endif

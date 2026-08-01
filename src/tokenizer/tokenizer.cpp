@@ -123,7 +123,7 @@ Program parseProgram(std::deque<Token> &tokenized_file) {
     return Program{parseFunction(tokenized_file)};
 }
 
-void parseTokens(std::deque<Token> &tokenized_file) { 
+Program parseTokens(std::deque<Token> &tokenized_file) { 
     Program program = parseProgram(tokenized_file);
     if (!tokenized_file.empty()) tokenized_file.pop_front();
 
@@ -135,6 +135,8 @@ void parseTokens(std::deque<Token> &tokenized_file) {
     std::cout << '\n';
     std::cout << "-----AST-----" << '\n';
     std::cout << program;
+
+    return program;
 }
 
 std::string tokenToString(TokenType t) {

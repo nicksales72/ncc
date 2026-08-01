@@ -88,5 +88,5 @@ struct Program {
     }
 };
 
-void parseTokens(std::deque<Token> &tokenized_file);
+Program parseTokens(std::deque<Token> &tokenized_file);
 #endif

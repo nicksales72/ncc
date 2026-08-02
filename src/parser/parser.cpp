@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "parser.hpp"
 
 Token consume(std::deque<Token>& tokenized_file, TokenType expected) {

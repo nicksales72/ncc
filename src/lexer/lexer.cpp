@@ -1,5 +1,6 @@
 #include <regex>
 #include <variant>
+#include <iostream>
 
 #include "lexer.hpp"
 

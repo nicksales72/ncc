@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "tokenizer/tokenizer.hpp"
+#include "codegen/codegen.hpp"
 #include "parser/parser.hpp"
 
 int main(int argc, char **argv) {

@@ -5,7 +5,6 @@
 #include <vector>
 
 #include "token.hpp"
-#include "../parser/ast.hpp"
 
 class Tokenizer {
 public: 
@@ -17,5 +16,3 @@ public:
 private:
     std::deque<Token> tokenizeFile(const std::vector<char>&);
 };
-
-void emitAssm(Program program, std::string output_name);

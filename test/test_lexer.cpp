@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <pthread.h>
 
-#include "../src/tokenizer/tokenizer.hpp"
+#include "../src/lexer/lexer.hpp"
 
 TEST(TokenizerTest, TestExample) {
     std::deque<Token> expected_vector = {
@@ -15,9 +15,9 @@ TEST(TokenizerTest, TestExample) {
         Token{.type = TOKEN_SEMICOLON, .value = std::monostate{}, .line = 2},
         Token{.type = TOKEN_RIGHT_BRACE, .value = std::monostate{}, .line = 3},
     };
-    Tokenizer tokenizer("examples/example.c");
+    Lexer lexer("examples/example.c");
    
-    EXPECT_EQ(tokenizer.tokenized_file, expected_vector);
+    EXPECT_EQ(lexer.tokenized_file, expected_vector);
 }
 
 TEST(TokenizerTest, TestExample1) {
@@ -38,9 +38,9 @@ TEST(TokenizerTest, TestExample1) {
         Token{.type = TOKEN_SEMICOLON, .value = std::monostate{}, .line = 3},
         Token{.type = TOKEN_RIGHT_BRACE, .value = std::monostate{}, .line = 4},
     };
-    Tokenizer tokenizer("examples/example1.c");
+    Lexer lexer("examples/example1.c");
    
-    EXPECT_EQ(tokenizer.tokenized_file, expected_vector);
+    EXPECT_EQ(lexer.tokenized_file, expected_vector);
 }
 
 
@@ -75,7 +75,7 @@ TEST(TokenizerTest, TestExample2) {
         Token{.type = TOKEN_SEMICOLON, .value = std::monostate{}, .line = 8},
         Token{.type = TOKEN_RIGHT_BRACE, .value = std::monostate{}, .line = 9},
     };
-    Tokenizer tokenizer("examples/example2.c");
+    Lexer lexer("examples/example2.c");
    
-    EXPECT_EQ(tokenizer.tokenized_file, expected_vector);
+    EXPECT_EQ(lexer.tokenized_file, expected_vector);
 }

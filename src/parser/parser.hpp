@@ -3,6 +3,6 @@
 #include <deque>
 
 #include "ast.hpp"
-#include "../tokenizer/token.hpp"
+#include "../lexer/token.hpp"
 
 Program parseTokens(std::deque<Token>& tokenized_file);

@@ -1,10 +1,10 @@
 #include <regex>
 #include <variant>
 
-#include "tokenizer.hpp"
+#include "lexer.hpp"
 #include "../helpers/helpers.hpp"
 
-Tokenizer::Tokenizer(const std::string& path) {
+Lexer::Lexer(const std::string& path) {
     const std::vector<char> bytes = readFile(path);
     tokenized_file = tokenizeFile(bytes);
 
@@ -16,7 +16,7 @@ Tokenizer::Tokenizer(const std::string& path) {
     std::cout << '\n';
 }
 
-std::deque<Token> Tokenizer::tokenizeFile(const std::vector<char>& bytes) {
+std::deque<Token> Lexer::tokenizeFile(const std::vector<char>& bytes) {
     std::string last_token = "";
     std::deque<Token> tokenize_queue = {};
 
@@ -71,20 +71,4 @@ std::deque<Token> Tokenizer::tokenizeFile(const std::vector<char>& bytes) {
         }
     } 
     return tokenize_queue;
-}
-
-std::string tokenToString(TokenType t) {
-    switch (t) {
-        case TokenType::TOKEN_LEFT_BRACE: return "TOKEN_LEFT_BRACE";
-        case TokenType::TOKEN_RIGHT_BRACE: return "TOKEN_RIGHT_BRACE";
-        case TokenType::TOKEN_LEFT_PAREN: return "TOKEN_LEFT_PAREN";
-        case TokenType::TOKEN_RIGHT_PAREN: return "TOKEN_RIGHT_PAREN";
-        case TokenType::TOKEN_SEMICOLON: return "TOKEN_SEMICOLON";
-        case TokenType::TOKEN_INT: return "TOKEN_INT";
-        case TokenType::TOKEN_RETURN: return "TOKEN_RETURN";
-        case TokenType::TOKEN_IDENTIFIER: return "TOKEN_IDENTIFIER";
-        case TokenType::TOKEN_INT_LIT: return "TOKEN_INT_LIT";
-        case TokenType::TOKEN_EOF: return "TOKEN_EOF";
-    }
-    return "?";
 }

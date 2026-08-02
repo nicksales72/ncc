@@ -6,10 +6,10 @@
 
 #include "token.hpp"
 
-class Tokenizer {
+class Lexer {
 public: 
-    Tokenizer(const std::string&);
-    ~Tokenizer() = default;
+    Lexer(const std::string&);
+    ~Lexer() = default;
 
     std::deque<Token> tokenized_file;
 

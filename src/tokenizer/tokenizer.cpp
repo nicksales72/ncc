@@ -70,54 +70,63 @@ std::deque<Token> Tokenizer::tokenizeFile(const std::vector<char>& bytes) {
     return tokenize_queue;
 }
 
+Token consume(std::deque<Token>& tokenized_file, TokenType expected) {
+    if (tokenized_file.empty()) {
+        throw std::runtime_error("Expected " + tokenToString(expected) + ", reached end of input.");
+    }
+    
+    Token token = std::move(tokenized_file.front());
+    tokenized_file.pop_front();
+
+    if (token.type != expected) {
+        throw std::runtime_error("Expected " + tokenToString(expected) + ", got " 
+                                 + tokenToString(token.type) + " on line " + std::to_string(token.line));
+    }
+
+    return token;
+}
+
+Exp parseExp(std::deque<Token>& tokenized_file) {
+    /*
+     <exp> ::= <int>
+     */
+    Token token = consume(tokenized_file, TOKEN_INT_LIT);
+    Exp expression = Exp{std::get<int>(token.value)};
+
+    return expression;
+}
+
 Statement parseStatement(std::deque<Token>& tokenized_file) {
     /*
      <statement> ::= "return" <exp> ";"
-     <exp> ::= <int>
      */
+    consume(tokenized_file, TOKEN_RETURN);
 
-    if (tokenized_file[0].type != TOKEN_RETURN) {
-        // fail or something
-        std::cout << "we fail on statement";
-    }
+    Exp expression = parseExp(tokenized_file);
 
-    int value;
-    for (Token token : tokenized_file) {
-        if (token.type == TOKEN_INT_LIT 
-            && std::holds_alternative<int>(token.value)) value = std::get<int>(token.value); 
-        if (token.type != TOKEN_SEMICOLON) {
-            tokenized_file.pop_front();
-            continue;
-        } else {
-            tokenized_file.pop_front();
-            break;
-        }
-    } 
-    return Statement{Exp{value}};
+    consume(tokenized_file, TOKEN_SEMICOLON);
+    
+    return Statement{expression};
 }
 
 Function parseFunction(std::deque<Token>& tokenized_file) {
     /*
      <function> ::= "int" <id> "(" ")" "{" <statement> "}"
      */
-    if (tokenized_file[0].type != TOKEN_INT) {
-        // fail or something
-        std::cout << "we fail on function";
-    }
+    consume(tokenized_file, TOKEN_INT);
 
-    std::string function_name;
-    for (Token token : tokenized_file) {
-        if (token.type == TOKEN_IDENTIFIER 
-            && std::holds_alternative<std::string>(token.value)) function_name = std::get<std::string>(token.value); 
-        if (token.type != TOKEN_LEFT_BRACE) {
-            tokenized_file.pop_front();
-            continue;
-        } else {
-            tokenized_file.pop_front();
-            break;
-        }
-    } 
-    return Function{.function_name = function_name, .function_statement=parseStatement(tokenized_file)};
+    Token function_identifier = consume(tokenized_file, TOKEN_IDENTIFIER);
+    std::string function_name = std::get<std::string>(function_identifier.value);
+
+    consume(tokenized_file, TOKEN_LEFT_PAREN);
+    consume(tokenized_file, TOKEN_RIGHT_PAREN);
+    consume(tokenized_file, TOKEN_LEFT_BRACE);
+
+    Statement function_statement = parseStatement(tokenized_file);
+
+    consume(tokenized_file, TOKEN_RIGHT_BRACE);
+
+    return Function{.function_name = function_name, .function_statement=std::move(function_statement)};
 }
 
 Program parseProgram(std::deque<Token>& tokenized_file) {
@@ -129,7 +138,6 @@ Program parseProgram(std::deque<Token>& tokenized_file) {
 
 Program parseTokens(std::deque<Token>& tokenized_file) { 
     Program program = parseProgram(tokenized_file);
-    if (!tokenized_file.empty()) tokenized_file.pop_front(); // last right brace
 
     // remove this
     std::cout << "-----TOKENS AFTER AST CREATION (SHOULD BE EMPTY)-----" << '\n';

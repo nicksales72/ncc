@@ -1,7 +1,5 @@
 #include <regex>
 #include <variant>
-#include <fstream>
-#include <cstdlib>
 
 #include "tokenizer.hpp"
 #include "../helpers/helpers.hpp"
@@ -189,16 +187,6 @@ std::string emitFunction(Function function) {
 
 std::string emitProgram(Program program) {
     return emitFunction(program.program_function) + "\n\0";
-}
-
-void writeAssm(std::string& assembly, std::string& output_name) {
-    std::ofstream my_file("temp.s");
-    my_file << assembly;
-    my_file.close();
-
-    std::string cli_command = "gcc temp.s -o " + output_name + " && rm temp.s && ./" + output_name;
-    int return_code = std::system(cli_command.c_str());
-    if (!return_code) std::cout << "idk";
 }
 
 void emitAssm(Program program, std::string output_name) {

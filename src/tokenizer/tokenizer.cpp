@@ -29,10 +29,11 @@ std::deque<Token> Tokenizer::tokenizeFile(const std::vector<char>& bytes) {
 
     int line_num = 1;
     for (char character : bytes) {
-        if (character == '\n') {
-            line_num++;
-        } else if (character == ' ' || character == '{' || character == '}' 
-                   || character == '(' || character == ')' || character == ';') { 
+        if (character == ' ' || character == '{' || character == '}' || character == '(' 
+            || character == ')' || character == ';' || character == '\n') { 
+            if (character == '\n') {
+                line_num++;
+            }
             if (last_token == "int") {
                 tokenize_queue.push_back(Token{.type=TOKEN_INT, .value = std::monostate{}, .line=line_num});
             } else if (last_token == "return") {
@@ -65,6 +66,8 @@ std::deque<Token> Tokenizer::tokenizeFile(const std::vector<char>& bytes) {
             continue;
         } else if (std::isalnum(character) || character == '_') {
             last_token += character;
+        } else {
+            throw std::runtime_error("Unexpected character on line " + std::to_string(line_num));
         }
     } 
     return tokenize_queue;

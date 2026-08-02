@@ -18,6 +18,4 @@ private:
     std::deque<Token> tokenizeFile(const std::vector<char>&);
 };
 
-Program parseTokens(std::deque<Token>& tokenized_file);
-
 void emitAssm(Program program, std::string output_name);

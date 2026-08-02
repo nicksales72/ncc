@@ -2,13 +2,13 @@
 
 #include "parser.hpp"
 
-Token consume(std::deque<Token>& tokenized_file, TokenType expected) {
-    if (tokenized_file.empty()) {
+Token consume(std::deque<Token>& tokens, TokenType expected) {
+    if (tokens.empty()) {
         throw std::runtime_error("Expected " + tokenToString(expected) + ", reached end of input.");
     }
     
-    Token token = std::move(tokenized_file.front());
-    tokenized_file.pop_front();
+    Token token = std::move(tokens.front());
+    tokens.pop_front();
 
     if (token.type != expected) {
         throw std::runtime_error("Expected " + tokenToString(expected) + ", got " 
@@ -18,60 +18,60 @@ Token consume(std::deque<Token>& tokenized_file, TokenType expected) {
     return token;
 }
 
-Exp parseExp(std::deque<Token>& tokenized_file) {
+Exp parseExp(std::deque<Token>& tokens) {
     /*
      <exp> ::= <int>
      */
-    Token token = consume(tokenized_file, TOKEN_INT_LIT);
+    Token token = consume(tokens, TOKEN_INT_LIT);
     return Exp{std::get<int>(token.value)};
 }
 
-Statement parseStatement(std::deque<Token>& tokenized_file) {
+Statement parseStatement(std::deque<Token>& tokens) {
     /*
      <statement> ::= "return" <exp> ";"
      */
-    consume(tokenized_file, TOKEN_RETURN);
+    consume(tokens, TOKEN_RETURN);
 
-    Exp expression = parseExp(tokenized_file);
+    Exp expression = parseExp(tokens);
 
-    consume(tokenized_file, TOKEN_SEMICOLON);
+    consume(tokens, TOKEN_SEMICOLON);
     
     return Statement{expression};
 }
 
-Function parseFunction(std::deque<Token>& tokenized_file) {
+Function parseFunction(std::deque<Token>& tokens) {
     /*
      <function> ::= "int" <id> "(" ")" "{" <statement> "}"
      */
-    consume(tokenized_file, TOKEN_INT);
+    consume(tokens, TOKEN_INT);
 
-    Token function_identifier = consume(tokenized_file, TOKEN_IDENTIFIER);
+    Token function_identifier = consume(tokens, TOKEN_IDENTIFIER);
     std::string function_name = std::get<std::string>(function_identifier.value);
 
-    consume(tokenized_file, TOKEN_LEFT_PAREN);
-    consume(tokenized_file, TOKEN_RIGHT_PAREN);
-    consume(tokenized_file, TOKEN_LEFT_BRACE);
+    consume(tokens, TOKEN_LEFT_PAREN);
+    consume(tokens, TOKEN_RIGHT_PAREN);
+    consume(tokens, TOKEN_LEFT_BRACE);
 
-    Statement function_statement = parseStatement(tokenized_file);
+    Statement function_statement = parseStatement(tokens);
 
-    consume(tokenized_file, TOKEN_RIGHT_BRACE);
+    consume(tokens, TOKEN_RIGHT_BRACE);
 
     return Function{.function_name = function_name, .function_statement=std::move(function_statement)};
 }
 
-Program parseProgram(std::deque<Token>& tokenized_file) {
+Program parseProgram(std::deque<Token>& tokens) {
     /* 
      <program> ::= <function>
      */
-    return Program{parseFunction(tokenized_file)};
+    return Program{parseFunction(tokens)};
 }
 
-Program parseTokens(std::deque<Token>& tokenized_file) { 
-    Program program = parseProgram(tokenized_file);
+Program parseTokens(std::deque<Token>& tokens) { 
+    Program program = parseProgram(tokens);
 
     // remove this
     std::cout << "-----TOKENS AFTER AST CREATION (SHOULD BE EMPTY)-----" << '\n';
-    for (Token token : tokenized_file) {
+    for (Token token : tokens) {
         std::cout << token << '\n';
     }
     std::cout << '\n';

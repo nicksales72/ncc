@@ -5,4 +5,4 @@
 #include "ast.hpp"
 #include "../lexer/token.hpp"
 
-Program parseTokens(std::deque<Token>& tokenized_file);
+Program parseTokens(std::deque<Token>&);

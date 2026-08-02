@@ -2,10 +2,8 @@
 #include <variant>
 
 #include "lexer.hpp"
-#include "../helpers/helpers.hpp"
 
-Lexer::Lexer(const std::string& path) {
-    const std::vector<char> bytes = readFile(path);
+Lexer::Lexer(const std::vector<char>& bytes) {
     tokenized_file = tokenizeFile(bytes);
 
     // remove this

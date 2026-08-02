@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include <deque>
 #include <vector>
 
@@ -8,7 +7,7 @@
 
 class Lexer {
 public: 
-    Lexer(const std::string&);
+    Lexer(const std::vector<char>&);
     ~Lexer() = default;
 
     std::deque<Token> tokenized_file;

@@ -2,6 +2,7 @@
 #include <pthread.h>
 
 #include "../src/lexer/lexer.hpp"
+#include "../src/helpers/helpers.hpp"
 
 TEST(TokenizerTest, TestExample) {
     std::deque<Token> expected_vector = {
@@ -15,7 +16,8 @@ TEST(TokenizerTest, TestExample) {
         Token{.type = TOKEN_SEMICOLON, .value = std::monostate{}, .line = 2},
         Token{.type = TOKEN_RIGHT_BRACE, .value = std::monostate{}, .line = 3},
     };
-    Lexer lexer("examples/example.c");
+    const std::vector<char> bytes = readFile("examples/example.c");
+    Lexer lexer(bytes);
    
     EXPECT_EQ(lexer.tokenized_file, expected_vector);
 }
@@ -38,7 +40,8 @@ TEST(TokenizerTest, TestExample1) {
         Token{.type = TOKEN_SEMICOLON, .value = std::monostate{}, .line = 3},
         Token{.type = TOKEN_RIGHT_BRACE, .value = std::monostate{}, .line = 4},
     };
-    Lexer lexer("examples/example1.c");
+    const std::vector<char> bytes = readFile("examples/example1.c");
+    Lexer lexer(bytes);
    
     EXPECT_EQ(lexer.tokenized_file, expected_vector);
 }
@@ -75,7 +78,8 @@ TEST(TokenizerTest, TestExample2) {
         Token{.type = TOKEN_SEMICOLON, .value = std::monostate{}, .line = 8},
         Token{.type = TOKEN_RIGHT_BRACE, .value = std::monostate{}, .line = 9},
     };
-    Lexer lexer("examples/example2.c");
+    const std::vector<char> bytes = readFile("examples/example2.c");
+    Lexer lexer(bytes);
    
     EXPECT_EQ(lexer.tokenized_file, expected_vector);
 }

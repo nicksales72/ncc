@@ -5,11 +5,11 @@
 #include "lexer.hpp"
 
 Lexer::Lexer(const std::vector<char>& bytes) {
-    tokenized_file = tokenizeFile(bytes);
+    tokens = tokenizeFile(bytes);
 
     // remove this
     std::cout << "-----TOKENS-----" << '\n';
-    for (Token token : tokenized_file) {
+    for (Token token : tokens) {
         std::cout << token << '\n';
     }
     std::cout << '\n';

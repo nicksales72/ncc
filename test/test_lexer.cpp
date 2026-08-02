@@ -19,7 +19,7 @@ TEST(LexerTest, TokenizeExample) {
     const std::vector<char> bytes = readFile("examples/example.c");
     Lexer lexer(bytes);
    
-    EXPECT_EQ(lexer.tokenized_file, expected_vector);
+    EXPECT_EQ(lexer.tokens, expected_vector);
 }
 
 TEST(LexerTest, TokenizeExample1) {
@@ -43,7 +43,7 @@ TEST(LexerTest, TokenizeExample1) {
     const std::vector<char> bytes = readFile("examples/example1.c");
     Lexer lexer(bytes);
    
-    EXPECT_EQ(lexer.tokenized_file, expected_vector);
+    EXPECT_EQ(lexer.tokens, expected_vector);
 }
 
 
@@ -81,5 +81,5 @@ TEST(LexerTest, TokenizeExample2) {
     const std::vector<char> bytes = readFile("examples/example2.c");
     Lexer lexer(bytes);
    
-    EXPECT_EQ(lexer.tokenized_file, expected_vector);
+    EXPECT_EQ(lexer.tokens, expected_vector);
 }

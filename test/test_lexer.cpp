@@ -4,7 +4,7 @@
 #include "../src/lexer/lexer.hpp"
 #include "../src/helpers/helpers.hpp"
 
-TEST(TokenizerTest, TestExample) {
+TEST(LexerTest, TokenizeExample) {
     std::deque<Token> expected_vector = {
         Token{.type = TOKEN_INT, .value = std::monostate{}, .line = 1},
         Token{.type = TOKEN_IDENTIFIER, .value = std::string("main"), .line = 1},
@@ -22,7 +22,7 @@ TEST(TokenizerTest, TestExample) {
     EXPECT_EQ(lexer.tokenized_file, expected_vector);
 }
 
-TEST(TokenizerTest, TestExample1) {
+TEST(LexerTest, TokenizeExample1) {
     std::deque<Token> expected_vector = {
         Token{.type = TOKEN_INT, .value = std::monostate{}, .line = 1},
         Token{.type = TOKEN_IDENTIFIER, .value = std::string("main"), .line = 1},
@@ -47,7 +47,7 @@ TEST(TokenizerTest, TestExample1) {
 }
 
 
-TEST(TokenizerTest, TestExample2) {
+TEST(LexerTest, TokenizeExample2) {
     std::deque<Token> expected_vector = {
         Token{.type = TOKEN_INT, .value = std::monostate{}, .line = 1},
         Token{.type = TOKEN_IDENTIFIER, .value = std::string("my_func"), .line = 1},

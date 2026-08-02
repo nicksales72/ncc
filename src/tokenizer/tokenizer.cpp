@@ -1,5 +1,7 @@
 #include <regex>
 #include <variant>
+#include <fstream>
+#include <cstdlib>
 
 #include "tokenizer.hpp"
 #include "../helpers/helpers.hpp"
@@ -168,4 +170,44 @@ std::string tokenToString(TokenType t) {
         case TokenType::TOKEN_EOF: return "TOKEN_EOF";
     }
     return "?";
+}
+
+std::string emitExp(Exp expression) {
+    // can only emit int currently
+    return std::to_string(expression.value);
+}
+
+std::string emitStatement(Statement statement) {
+    return "\tmov $" + emitExp(statement.return_expression) + ", %rax\n\tret";
+}
+
+std::string emitFunction(Function function) {
+    return ".global " + function.function_name + '\n' 
+           + function.function_name + ":" + '\n'
+           + emitStatement(function.function_statement);
+}
+
+std::string emitProgram(Program program) {
+    return emitFunction(program.program_function) + "\n\0";
+}
+
+void writeAssm(std::string& assembly, std::string& output_name) {
+    std::ofstream my_file("temp.s");
+    my_file << assembly;
+    my_file.close();
+
+    std::string cli_command = "gcc temp.s -o " + output_name + " && rm temp.s && ./" + output_name;
+    int return_code = std::system(cli_command.c_str());
+    if (!return_code) std::cout << "idk";
+}
+
+void emitAssm(Program program, std::string output_name) {
+    std::string assembly = emitProgram(program);
+
+    //remove
+    std::cout << '\n';
+    std::cout << "-----ASSEMBLY-----" << '\n';
+    std::cout << assembly;
+
+    writeAssm(assembly, output_name);
 }

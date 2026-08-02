@@ -97,3 +97,5 @@ struct Program {
 };
 
 Program parseTokens(std::deque<Token>& tokenized_file);
+
+void emitAssm(Program program, std::string output_name);

@@ -1,16 +1,15 @@
 # ncc 
-This will be a fully functioning C compiler. The current goal is to successfully compile the code in `examples/example.c`, which is just the following simple C program: 
+This compiler can currently compile the following very basic C program in `examples/example.c` (directly to assembly):
 ```c
 int main() {
     return 2;
 }
 ```
-Right now the tokenizer and the parser for the AST are *mostly* working (besides some error handling), which can be seen by running the following:
+This can be seen by running the following:
 ```shell
 make 
 ./ncc examples/example.c -o example
 ```
-Which outputs:
 ```shell
 -----PROGRAM-----
 int main() {
@@ -32,4 +31,16 @@ Token Type: TOKEN_RIGHT_BRACE, Token Line: 3, Token Value: (none)
 
 -----AST-----
 Program(Function(Name: main, Statement(Exp(2))))
+
+-----ASSEMBLY-----
+.global main
+main:
+	mov $2, %rax
+	ret
 ```
+```shell
+./example
+echo $?
+2
+```
+The current goal is to just cleanup the code. And after this to then compile a more complex example (ideally repeating this process until most C programs can compile).

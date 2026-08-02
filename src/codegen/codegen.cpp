@@ -20,7 +20,7 @@ std::string emitProgram(Program program) {
     return emitFunction(program.program_function) + "\n\0";
 }
 
-void emitAssm(Program program, std::string output_name) {
+void emitAsm(Program program, std::string output_name) {
     std::string assembly = emitProgram(program);
 
     //remove
@@ -28,5 +28,5 @@ void emitAssm(Program program, std::string output_name) {
     std::cout << "-----ASSEMBLY-----" << '\n';
     std::cout << assembly;
 
-    writeAssm(assembly, output_name);
+    writeAsm(assembly, output_name);
 }

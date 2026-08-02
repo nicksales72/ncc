@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
         const std::vector<char> bytes = readFile(argv[1]);
         Lexer lexer(bytes);
         Program program_ast = parseTokens(lexer.tokenized_file);
-        emitAssm(program_ast, std::string(argv[3]));
+        emitAsm(program_ast, std::string(argv[3]));
     } else {
         std::cerr << "Usage: ./ncc <file> -o <exec_name>\n";
         exit(64);

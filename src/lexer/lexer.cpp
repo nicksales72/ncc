@@ -71,3 +71,7 @@ std::deque<Token> Lexer::tokenizeFile(const std::vector<char>& bytes) {
     } 
     return tokenize_queue;
 }
+
+std::deque<Token> Lexer::getTokens() {
+    return tokens;
+}

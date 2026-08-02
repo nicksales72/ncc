@@ -10,8 +10,9 @@ public:
     Lexer(const std::vector<char>&);
     ~Lexer() = default;
 
-    std::deque<Token> tokens;
+    std::deque<Token> getTokens();
 
 private:
     std::deque<Token> tokenizeFile(const std::vector<char>&);
+    std::deque<Token> tokens;
 };

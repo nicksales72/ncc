@@ -94,9 +94,7 @@ Exp parseExp(std::deque<Token>& tokenized_file) {
      <exp> ::= <int>
      */
     Token token = consume(tokenized_file, TOKEN_INT_LIT);
-    Exp expression = Exp{std::get<int>(token.value)};
-
-    return expression;
+    return Exp{std::get<int>(token.value)};
 }
 
 Statement parseStatement(std::deque<Token>& tokenized_file) {

@@ -51,7 +51,7 @@ std::deque<Token> Lexer::tokenizeFile(const std::vector<char>& bytes) {
         } else if (std::isalnum(character) || character == '_') {
             last_token += character;
         } else {
-            throw std::runtime_error("Unexpected character on line " + std::to_string(line_num));
+            throw std::runtime_error(std::string("Unexpected character ") + "'" + character + "'" + " on line " + std::to_string(line_num));
         }
     } 
     return tokenize_queue;

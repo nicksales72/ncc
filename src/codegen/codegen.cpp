@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "codegen.hpp"
 #include "../helpers/helpers.hpp"
 
@@ -22,13 +20,8 @@ std::string emitProgram(Program program) {
     return emitFunction(program.program_function) + "\n\0";
 }
 
-void emitAsm(Program program, std::string output_name) {
+std::string emitAsm(Program program, std::string output_name) {
     std::string assembly = emitProgram(program);
-
-    //remove
-    std::cout << '\n';
-    std::cout << "-----ASSEMBLY-----" << '\n';
-    std::cout << assembly;
-
     writeAsm(assembly, output_name);
+    return assembly;
 }

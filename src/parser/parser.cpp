@@ -67,16 +67,5 @@ Program parseProgram(std::deque<Token>& tokens) {
 }
 
 Program parseTokens(std::deque<Token>& tokens) { 
-    Program program = parseProgram(tokens);
-
-    // remove this
-    std::cout << "-----TOKENS AFTER AST CREATION (SHOULD BE EMPTY)-----" << '\n';
-    for (Token token : tokens) {
-        std::cout << token << '\n';
-    }
-    std::cout << '\n';
-    std::cout << "-----AST-----" << '\n';
-    std::cout << program;
-
-    return program;
+    return parseProgram(tokens);
 }

@@ -5,10 +5,10 @@ int main() {
     return 2;
 }
 ```
-This can be seen by running the following:
+This can be seen by running the following with `DEBUG=1`:
 ```shell
 make 
-./ncc examples/example.c -o example
+./ncc examples/example.c -o example DEBUG=1
 ```
 ```shell
 -----PROGRAM-----

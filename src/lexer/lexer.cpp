@@ -6,25 +6,11 @@
 
 Lexer::Lexer(const std::vector<char>& bytes) {
     tokens = tokenizeFile(bytes);
-
-    // remove this
-    std::cout << "-----TOKENS-----" << '\n';
-    for (Token token : tokens) {
-        std::cout << token << '\n';
-    }
-    std::cout << '\n';
 }
 
 std::deque<Token> Lexer::tokenizeFile(const std::vector<char>& bytes) {
     std::string last_token = "";
     std::deque<Token> tokenize_queue = {};
-
-    // remove this
-    std::cout << "-----PROGRAM-----" << '\n';
-    for (char temp : bytes) {
-        std::cout << temp;
-    }
-    std::cout << '\n';
 
     int line_num = 1;
     for (char character : bytes) {

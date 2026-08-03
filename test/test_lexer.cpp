@@ -1,5 +1,4 @@
 #include <gtest/gtest.h>
-#include <pthread.h>
 
 #include "../src/lexer/lexer.hpp"
 #include "../src/helpers/helpers.hpp"

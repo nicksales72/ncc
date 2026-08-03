@@ -43,4 +43,3 @@ main:
 echo $?
 2
 ```
-The current goal is to just cleanup the code. And after this to then compile a more complex example (ideally repeating this process until most C programs can compile).

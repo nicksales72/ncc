@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "parser.hpp"
 
 Token consume(std::deque<Token>& tokens, TokenType expected) {

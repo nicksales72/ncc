@@ -4,7 +4,7 @@
 #include "../src/helpers/helpers.hpp"
 
 TEST(LexerTest, TokenizeExample) {
-    std::deque<Token> expected_vector = {
+    const std::deque<Token> expected_vector = {
         Token{.type = TOKEN_INT, .value = std::monostate{}, .line = 1},
         Token{.type = TOKEN_IDENTIFIER, .value = std::string("main"), .line = 1},
         Token{.type = TOKEN_LEFT_PAREN, .value = std::monostate{}, .line = 1},
@@ -22,7 +22,7 @@ TEST(LexerTest, TokenizeExample) {
 }
 
 TEST(LexerTest, TokenizeExample1) {
-    std::deque<Token> expected_vector = {
+    const std::deque<Token> expected_vector = {
         Token{.type = TOKEN_INT, .value = std::monostate{}, .line = 1},
         Token{.type = TOKEN_IDENTIFIER, .value = std::string("main"), .line = 1},
         Token{.type = TOKEN_LEFT_PAREN, .value = std::monostate{}, .line = 1},
@@ -47,7 +47,7 @@ TEST(LexerTest, TokenizeExample1) {
 
 
 TEST(LexerTest, TokenizeExample2) {
-    std::deque<Token> expected_vector = {
+    const std::deque<Token> expected_vector = {
         Token{.type = TOKEN_INT, .value = std::monostate{}, .line = 1},
         Token{.type = TOKEN_IDENTIFIER, .value = std::string("my_func"), .line = 1},
         Token{.type = TOKEN_LEFT_PAREN, .value = std::monostate{}, .line = 1},

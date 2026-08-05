@@ -21,7 +21,7 @@ std::string emitProgram(const Program& program) {
 }
 
 std::string emitAsm(const Program& program, const std::string& output_name) {
-    std::string assembly = emitProgram(program);
+    const std::string assembly = emitProgram(program);
     writeAsm(assembly, output_name);
     return assembly;
 }

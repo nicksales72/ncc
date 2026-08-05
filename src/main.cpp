@@ -7,11 +7,11 @@
 
 int main(int argc, char** argv) {
     if (argc == 4) {
-        std::vector<char> bytes = readFile(argv[1]);
+        const std::vector<char> bytes = readFile(argv[1]);
         Lexer lexer(bytes);
 
         std::deque<Token> tokens = lexer.getTokens();
-        Program program_ast = parseTokens(tokens);
+        const Program program_ast = parseTokens(tokens);
 
         emitAsm(program_ast, std::string(argv[3]));
     } else if (argc == 5) { // DEBUG=1 or DEBUG=0
@@ -23,9 +23,9 @@ int main(int argc, char** argv) {
         }
 
         if (debug_arg == "DEBUG=1") {
-            std::vector<char> bytes = readFile(argv[1]);
+            const std::vector<char> bytes = readFile(argv[1]);
             std::cout << "-----PROGRAM-----" << '\n';
-            for (char temp : bytes) {
+            for (const char temp : bytes) {
                 std::cout << temp;
             }
             std::cout << '\n';
@@ -34,30 +34,30 @@ int main(int argc, char** argv) {
 
             std::deque<Token> tokens = lexer.getTokens();
             std::cout << "-----TOKENS-----" << '\n';
-            for (Token token : tokens) {
+            for (const Token& token : tokens) {
                 std::cout << token << '\n';
             }
             std::cout << '\n';
 
-            Program program_ast = parseTokens(tokens);
+            const Program program_ast = parseTokens(tokens);
             std::cout << "-----TOKENS AFTER AST CREATION (SHOULD BE EMPTY)-----" << '\n';
-            for (Token token : tokens) {
+            for (const Token& token : tokens) {
                 std::cout << token << '\n';
             }
             std::cout << '\n';
             std::cout << "-----AST-----" << '\n';
             std::cout << program_ast;
 
-            std::string assembly = emitAsm(program_ast, std::string(argv[3]));
+            const std::string assembly = emitAsm(program_ast, std::string(argv[3]));
             std::cout << '\n';
             std::cout << "-----ASSEMBLY-----" << '\n';
             std::cout << assembly;
         } else {
-            std::vector<char> file = readFile(argv[1]);
+            const std::vector<char> file = readFile(argv[1]);
             Lexer lexer(file);
 
             std::deque<Token> tokens = lexer.getTokens();
-            Program program_ast = parseTokens(tokens);
+            const Program program_ast = parseTokens(tokens);
 
             emitAsm(program_ast, std::string(argv[3]));
         }

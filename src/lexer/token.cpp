@@ -1,6 +1,6 @@
 #include "token.hpp"
 
-std::string tokenToString(TokenType t) {
+std::string tokenToString(const TokenType t) {
     switch (t) {
         case TokenType::TOKEN_LEFT_BRACE: return "TOKEN_LEFT_BRACE";
         case TokenType::TOKEN_RIGHT_BRACE: return "TOKEN_RIGHT_BRACE";

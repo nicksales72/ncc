@@ -18,7 +18,7 @@ enum TokenType {
     TOKEN_EOF
 };
 
-std::string tokenToString(TokenType t);
+std::string tokenToString(const TokenType t);
 
 struct Token {
     TokenType type; 

@@ -9,7 +9,7 @@ std::vector<char> readFile(const std::string& path){
     return bytes;
 }
 
-void writeAsm(std::string& assembly, std::string& output_name) {
+void writeAsm(const std::string& assembly, const std::string& output_name) {
     std::ofstream my_file("temp.s");
     my_file << assembly;
     my_file.close();

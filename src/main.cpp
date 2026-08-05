@@ -5,7 +5,7 @@
 #include "parser/parser.hpp"
 #include "helpers/helpers.hpp"
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
     if (argc == 4) {
         std::vector<char> bytes = readFile(argv[1]);
         Lexer lexer(bytes);

@@ -2,4 +2,4 @@
 
 #include "../parser/ast.hpp"
 
-std::string emitAsm(Program program, std::string output_name);
+std::string emitAsm(const Program& program, const std::string& output_name);

@@ -1,12 +1,21 @@
 #pragma once 
 
 #include <ostream>
+#include <variant>
+
+struct Constant {
+    std::variant<int> value;
+
+    friend std::ostream& operator<<(std::ostream& os, const Constant& constant) {
+        return os << "Const(" << std::get<int>(constant.value) << ")";
+    }
+};
 
 struct Exp {
-    int value{};   
+    Constant exp_constant;
 
     friend std::ostream& operator<<(std::ostream& os, const Exp& exp) {
-        return os << "Exp(" << exp.value << ")";
+        return os << "Exp(" << exp.exp_constant << ")";
     }
 };
 

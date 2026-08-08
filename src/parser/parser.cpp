@@ -6,12 +6,13 @@ Token consume(std::deque<Token>& tokens, TokenType expected) {
     }
     
     const Token token = std::move(tokens.front());
-    tokens.pop_front();
 
     if (token.type != expected) {
         throw std::runtime_error("Expected " + tokenToString(expected) + ", got " 
                                  + tokenToString(token.type) + " on line " + std::to_string(token.line));
     }
+
+    tokens.pop_front();
 
     return token;
 }
@@ -28,6 +29,10 @@ UnaryOp parseUnOp(std::deque<Token>& tokens) {
     /*
      <unary_op> ::= "!" | "~" | "-"
      */
+    if (tokens.empty()) {
+        throw std::runtime_error("Parsing unary op failed, reached end of input.");
+    }
+
     const Token front_token = std::move(tokens.front());
     if (front_token.type == TOKEN_LOG_NEG) {
         consume(tokens, TOKEN_LOG_NEG);
@@ -35,15 +40,23 @@ UnaryOp parseUnOp(std::deque<Token>& tokens) {
     } else if (front_token.type == TOKEN_COMPLEMENT) {
         consume(tokens, TOKEN_COMPLEMENT);
         return UnaryOp{.unary_operator='~', .unary_operand=std::make_shared<Exp>(parseExp(tokens))};
+    } else if (front_token.type == TOKEN_NEG) {
+        consume(tokens, TOKEN_NEG);
+        return UnaryOp{.unary_operator='-', .unary_operand=std::make_shared<Exp>(parseExp(tokens))};
+    } else {
+        throw std::runtime_error("On line: " + std::to_string(front_token.line) + 
+                                 ", '" + tokenToString(front_token.type) + "' is not a valid unary operator");
     }
-    consume(tokens, TOKEN_NEG);
-    return UnaryOp{.unary_operator='-', .unary_operand=std::make_shared<Exp>(parseExp(tokens))};
 }
 
 Exp parseExp(std::deque<Token>& tokens) {
     /*
      <exp> ::= <unary_op> <exp> | <constant>
      */
+    if (tokens.empty()) {
+        throw std::runtime_error("Parsing expression failed, reached end of input.");
+    }
+
     const Token front_token = std::move(tokens.front());
     if (front_token.type == TOKEN_INT_LIT) {
         return Exp{parseConst(tokens)};

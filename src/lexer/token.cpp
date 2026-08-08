@@ -11,6 +11,9 @@ std::string tokenToString(const TokenType t) {
         case TokenType::TOKEN_RETURN: return "TOKEN_RETURN";
         case TokenType::TOKEN_IDENTIFIER: return "TOKEN_IDENTIFIER";
         case TokenType::TOKEN_INT_LIT: return "TOKEN_INT_LIT";
+        case TokenType::TOKEN_NEG: return "TOKEN_NEG";
+        case TokenType::TOKEN_COMPLEMENT: return "TOKEN_COMPLEMENT";
+        case TokenType::TOKEN_LOG_NEG: return "TOKEN_LOG_NEG";
         case TokenType::TOKEN_EOF: return "TOKEN_EOF";
     }
     return "?";

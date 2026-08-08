@@ -14,10 +14,12 @@ std::deque<Token> Lexer::tokenizeFile(const std::vector<char>& bytes) {
     int line_num = 1;
     for (char character : bytes) {
         if (character == ' ' || character == '{' || character == '}' || character == '(' 
-            || character == ')' || character == ';' || character == '\n') { 
+            || character == ')' || character == ';' || character == '\n' || character == '-'
+            || character == '!' || character == '~') { 
             if (character == '\n') {
                 line_num++;
             }
+
             if (last_token == "int") {
                 tokenize_queue.push_back(Token{.type=TOKEN_INT, .value = std::monostate{}, .line=line_num});
             } else if (last_token == "return") {
@@ -43,6 +45,15 @@ std::deque<Token> Lexer::tokenizeFile(const std::vector<char>& bytes) {
                     break;
                 case ';': 
                     tokenize_queue.push_back(Token{.type=TOKEN_SEMICOLON, .value = std::monostate{}, .line=line_num});
+                    break;
+                case '-': 
+                    tokenize_queue.push_back(Token{.type=TOKEN_NEG, .value = std::monostate{}, .line=line_num});
+                    break;
+                case '~': 
+                    tokenize_queue.push_back(Token{.type=TOKEN_COMPLEMENT, .value = std::monostate{}, .line=line_num});
+                    break;
+                case '!': 
+                    tokenize_queue.push_back(Token{.type=TOKEN_LOG_NEG, .value = std::monostate{}, .line=line_num});
                     break;
             }
             

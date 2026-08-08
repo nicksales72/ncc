@@ -30,7 +30,7 @@ Token Type: TOKEN_RIGHT_BRACE, Token Line: 3, Token Value: (none)
 -----TOKENS AFTER AST CREATION (SHOULD BE EMPTY)-----
 
 -----AST-----
-Program(Function(Name: main, Statement(Exp(Const(2)))))
+Program(Function(Name: main, Statement(Exp(2))))
 
 -----ASSEMBLY-----
 .global main

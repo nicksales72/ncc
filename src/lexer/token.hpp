@@ -14,6 +14,10 @@ enum TokenType {
     TOKEN_RETURN,          // return
     TOKEN_IDENTIFIER,      // [a-zA-Z]\w*
     TOKEN_INT_LIT,         // [0-9]+
+
+    TOKEN_NEG,             // - 
+    TOKEN_COMPLEMENT,      // ~
+    TOKEN_LOG_NEG,         // !
                            
     TOKEN_EOF
 };

@@ -1,13 +1,9 @@
 #include "codegen.hpp"
 #include "../helpers/helpers.hpp"
 
-std::string emitConstant(const Constant& constant) {
-    // can only emit int currently
-    return std::to_string(std::get<int>(constant.value));
-}
-
 std::string emitExp(const Exp& expression) {
-    return emitConstant(expression.exp_constant);
+    // can only emit int currently
+    return std::to_string(expression.value);
 }
 
 std::string emitStatement(const Statement& statement) {

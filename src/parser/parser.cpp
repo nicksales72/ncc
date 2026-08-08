@@ -16,14 +16,39 @@ Token consume(std::deque<Token>& tokens, TokenType expected) {
     return token;
 }
 
+Constant parseConst(std::deque<Token>& tokens) {
+    /*
+     <constant> ::= <int> 
+     */
+    const Token token = consume(tokens, TOKEN_INT_LIT);
+    return Constant{std::get<int>(token.value)};
+}
 
+UnaryOp parseUnOp(std::deque<Token>& tokens) {
+    /*
+     <unary_op> ::= "!" | "~" | "-"
+     */
+    const Token front_token = std::move(tokens.front());
+    if (front_token.type == TOKEN_LOG_NEG) {
+        consume(tokens, TOKEN_LOG_NEG);
+        return UnaryOp{.unary_operator='!', .unary_operand=std::make_shared<Exp>(parseExp(tokens))};
+    } else if (front_token.type == TOKEN_COMPLEMENT) {
+        consume(tokens, TOKEN_COMPLEMENT);
+        return UnaryOp{.unary_operator='~', .unary_operand=std::make_shared<Exp>(parseExp(tokens))};
+    }
+    consume(tokens, TOKEN_NEG);
+    return UnaryOp{.unary_operator='-', .unary_operand=std::make_shared<Exp>(parseExp(tokens))};
+}
 
 Exp parseExp(std::deque<Token>& tokens) {
     /*
-     <exp> ::= <int>
+     <exp> ::= <unary_op> <exp> | <constant>
      */
-    const Token token = consume(tokens, TOKEN_INT_LIT);
-    return Exp{std::get<int>(token.value)};
+    const Token front_token = std::move(tokens.front());
+    if (front_token.type == TOKEN_INT_LIT) {
+        return Exp{parseConst(tokens)};
+    }
+    return Exp{parseUnOp(tokens)};
 }
 
 Statement parseStatement(std::deque<Token>& tokens) {

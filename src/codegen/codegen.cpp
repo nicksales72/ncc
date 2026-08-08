@@ -1,9 +1,24 @@
 #include "codegen.hpp"
 #include "../helpers/helpers.hpp"
+#include <variant>
+
+std::string emitConst(const Constant& constant) {
+    // can only emit int currently
+    return std::to_string(constant.value);
+}
+
+std::string emitUnOp(const UnaryOp& unop) {
+    if (unop.unary_operator == '-') { // just to avoid error for now
+        return "not implemented";
+    } 
+    return "not implemented";
+}
 
 std::string emitExp(const Exp& expression) {
-    // can only emit int currently
-    return std::to_string(expression.value);
+    if (std::holds_alternative<Constant>(expression.value)) {
+        return emitConst(std::get<Constant>(expression.value));
+    }
+    return emitUnOp(std::get<UnaryOp>(expression.value));
 }
 
 std::string emitStatement(const Statement& statement) {

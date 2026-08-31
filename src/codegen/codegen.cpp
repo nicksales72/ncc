@@ -1,6 +1,5 @@
 #include "codegen.hpp"
 #include "../helpers/helpers.hpp"
-#include <variant>
 
 std::string emitConst(const Constant& constant) {
     // can only emit int currently

@@ -1,5 +1,4 @@
 #include <regex>
-#include <variant>
 
 #include "lexer.hpp"
 

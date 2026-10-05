@@ -1,35 +1,7 @@
 import re
-from enum import Enum, auto
 from collections import deque
-from dataclasses import dataclass
 from ncc.helpers.helpers import read_file
-
-class TokenType(Enum):
-    TOKEN_LEFT_BRACE = auto()      # {
-    TOKEN_RIGHT_BRACE = auto()     # }
-    TOKEN_LEFT_PAREN = auto()      # (
-    TOKEN_RIGHT_PAREN = auto()     # )
-    TOKEN_SEMICOLON  = auto()      # ;
-                           
-    TOKEN_INT = auto()             # int
-    TOKEN_RETURN = auto()          # return
-    TOKEN_IDENTIFIER = auto()      # [a-zA-Z]\w*
-    TOKEN_INT_LIT = auto()         # [0-9]+
-
-    TOKEN_NEG = auto()             # - 
-    TOKEN_COMPLEMENT = auto()      # ~
-    TOKEN_LOG_NEG = auto()         # !
-                           
-    TOKEN_EOF = auto()
-
-@dataclass
-class Token: 
-    token_type: TokenType
-    token_value: int | str | None
-    token_line: int
-
-    def __eq__(self, other:Token):
-        return self.token_type == other.token_type and self.token_value == other.token_value and self.token_line == other.token_line
+from ncc.lexer.token import Token, TokenType
 
 class Lexer: 
     def __init__(self, file:str, tokens:deque[Token]=None):
@@ -82,8 +54,3 @@ class Lexer:
                     
     def get_tokens(self) -> deque[Token]:
         return self.tokens
-
-if __name__ == "__main__":
-    thing = read_file("examples/example.c")
-    thing1 = Lexer(file=thing)
-    print(thing1.get_tokens())

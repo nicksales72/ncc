@@ -5,6 +5,7 @@
 !*.cpp 
 !*.h
 !*.c
+!*.py
 !.gitignore
 !Makefile
 !README.md

@@ -34,10 +34,11 @@ def compile_debug(file_path:str, output_name:str) -> None:
 
     print("\n-----AST-----")
     print(program_ast)
-
+    """
     assembly = emit_asm(program_ast, output_name)
     print("\n-----ASSEMBLY-----")
     print(assembly)
+    """
 
 def main() -> None:
     argc, argv = len(sys.argv), sys.argv

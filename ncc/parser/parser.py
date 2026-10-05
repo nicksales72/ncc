@@ -1,4 +1,4 @@
-from ncc.parser.ast import Program, Function, Statement, Exp, Constant
+from ncc.parser.ast import Program, Function, Statement, Exp, Constant, UOp
 from ncc.lexer.token import Token, TokenType, token_to_string
 from ncc.lexer.lexer import Lexer
 from collections import deque
@@ -28,9 +28,18 @@ def parse_const(lexer:Lexer) -> Constant:
 
 def parse_exp(lexer:Lexer) -> Exp:
     """
-    <exp> ::= <constant>
+    <exp> ::= <unary_op> <exp> | <int>
     """
-    return Exp(parse_const(lexer))
+    next_token = lexer.get_tokens()[0]
+
+    assert next_token.token_type in {TokenType.TOKEN_INT_LIT, TokenType.TOKEN_NEG, TokenType.TOKEN_COMPLEMENT, TokenType.TOKEN_LOG_NEG}
+
+    if next_token.token_type == TokenType.TOKEN_INT_LIT:
+        return Exp(parse_const(lexer))
+    else:
+        operator = consume(lexer.tokens, next_token.token_type)
+        operand = parse_exp(lexer)
+        return UOp(operator, operand)
 
 def parse_statement(lexer:Lexer) -> Statement:
     """

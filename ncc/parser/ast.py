@@ -7,9 +7,17 @@ class Constant:
     def __repr__(self) -> str:
         return f"Const({self.value})"
 
+@dataclass
+class UOp: 
+    operator: str
+    operand: Exp
+
+    def __repr__(self) -> str:
+        return f"UOp(Operator: {self.operator}, Operand: {self.operand})"
+
 @dataclass 
 class Exp:
-    value: Constant
+    value: UnOp | Constant
 
     def __repr__(self) -> str:
         return f"Exp({self.value})"

@@ -1,12 +1,9 @@
 *
 
 !*/ 
-!*.hpp 
-!*.cpp 
 !*.h
 !*.c
 !*.py
 !.gitignore
-!Makefile
 !README.md
 !LICENSE

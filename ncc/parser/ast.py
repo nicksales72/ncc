@@ -34,4 +34,4 @@ class Program:
     program_function: Function
 
     def __repr__(self) -> str:
-        return f"Program({self.program_function})\n"
+        return f"Program({self.program_function})"

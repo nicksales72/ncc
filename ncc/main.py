@@ -1,6 +1,7 @@
 import sys
 from ncc.helpers.helpers import read_file
 from ncc.lexer.lexer import Lexer
+from ncc.parser.parser import parse_program
 
 def compile_no_debug(file_path:str) -> None:
     file = read_file(file_path)
@@ -20,6 +21,15 @@ def compile_debug(file_path:str) -> None:
     print("\n-----TOKENS-----")
     for token in tokens:
         print(token)
+
+    program_ast = parse_program(lexer)    
+    print("\n-----TOKENS AFTER AST CREATION (SHOULD BE EMPTY)-----")
+    tokens = lexer.get_tokens()
+    for token in tokens:
+        print(token)
+
+    print("\n-----AST-----")
+    print(program_ast)
 
 def main() -> None:
     argc, argv = len(sys.argv), sys.argv

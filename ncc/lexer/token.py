@@ -25,8 +25,11 @@ class Token:
     token_value: int | str | None
     token_line: int
 
-    def __eq__(self, other:Token):
+    def __eq__(self, other:Token) -> bool:
         return self.token_type == other.token_type and self.token_value == other.token_value and self.token_line == other.token_line
+
+    def __repr__(self) -> str: 
+        return f"Token Type: {token_to_string(self.token_type)}, Token Value: {self.token_value}, Token Line: {self.token_line}"
  
 def token_to_string(t:TokenType) -> str:
     match t: 

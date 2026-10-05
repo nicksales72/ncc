@@ -1,7 +1,7 @@
 import unittest
 from collections import deque
-from ncc.lexer.lexer import Token, TokenType, Lexer
 from ncc.helpers.helpers import read_file
+from ncc.lexer.lexer import Token, TokenType, Lexer
 
 class TestLexer(unittest.TestCase):
     def test_tokenize_example(self):

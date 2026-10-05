@@ -7,8 +7,7 @@ int main() {
 ```
 This can be seen by running the following with `DEBUG=1`:
 ```shell
-make 
-./ncc examples/example.c -o example DEBUG=1
+python3 -m ncc.main examples/example.c -o example DEBUG=1
 ```
 ```shell
 -----PROGRAM-----

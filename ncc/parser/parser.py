@@ -29,6 +29,7 @@ def parse_const(lexer:Lexer) -> Constant:
 def parse_exp(lexer:Lexer) -> Exp:
     """
     <exp> ::= <unary_op> <exp> | <int>
+    <unary_op> ::= "!" | "~" | "-"
     """
     next_token = lexer.get_tokens()[0]
 

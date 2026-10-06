@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from ncc.lexer.token import Token, token_to_string
 
 @dataclass 
 class Constant:
@@ -9,11 +10,11 @@ class Constant:
 
 @dataclass
 class UOp: 
-    operator: str
+    operator: Token 
     operand: Exp
 
     def __repr__(self) -> str:
-        return f"UOp(Operator: {self.operator}, Operand: {self.operand})"
+        return f"UOp(Operator: {token_to_string(self.operator.token_type)}, Operand: {self.operand})"
 
 @dataclass 
 class Exp:

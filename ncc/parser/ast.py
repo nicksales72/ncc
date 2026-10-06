@@ -18,7 +18,7 @@ class UOp:
 
 @dataclass 
 class Exp:
-    value: UnOp | Constant
+    value: UOp | Constant
 
     def __repr__(self) -> str:
         return f"Exp({self.value})"

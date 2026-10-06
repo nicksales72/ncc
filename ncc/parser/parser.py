@@ -3,7 +3,7 @@ from ncc.lexer.token import Token, TokenType, token_to_string
 from ncc.lexer.lexer import Lexer
 from collections import deque
 
-def consume(tokens:deque[Tokens], expected:TokenType) -> Token:
+def consume(tokens:deque[Token], expected:TokenType) -> Token:
     if not tokens:
         raise RuntimeError(f"Expected {token_to_string(expected)}, reached end of input.")
 
@@ -40,7 +40,7 @@ def parse_exp(lexer:Lexer) -> Exp:
     else:
         operator = consume(lexer.tokens, next_token.token_type)
         operand = parse_exp(lexer)
-        return UOp(operator, operand)
+        return Exp(UOp(operator, operand))
 
 def parse_statement(lexer:Lexer) -> Statement:
     """

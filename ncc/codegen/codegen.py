@@ -1,7 +1,7 @@
 from ncc.helpers.helpers import write_asm
 from ncc.parser.ast import Program, Function, Statement, Exp, Constant
 
-def emit_const(constant:Constant) -> str:
+def emit_const(constant:Constant) -> int:
     return constant.value
 
 def emit_exp(expression:Exp) -> str:
